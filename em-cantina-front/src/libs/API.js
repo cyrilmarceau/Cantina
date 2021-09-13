@@ -11,7 +11,7 @@ const that = {
         let reqHeaders = {}
 
         return axios.create({
-            baseURL: process.env.NEXT_PUBLIC_API_FULL_URL,
+            baseURL: 'http://localhost:9000',
             headers: reqHeaders,
             // timeout: 1000,
         })
@@ -98,6 +98,9 @@ const that = {
                     reject(err)
                 })
         })
+    },
+    getRecipes(params) {
+        return that.showRoute(`${PUBLIC_ROUTE_PRE}/recipes/`, params)
     },
 }
 

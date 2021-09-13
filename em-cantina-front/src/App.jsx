@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Layout } from 'antd'
 
 import HeaderLayout from './components/layout/HeaderLayout'
+import Home from './views/Home'
 
 const { Content } = Layout
 
@@ -14,7 +15,9 @@ const App = () => {
             <Layout>
                 <HeaderLayout />
                 <Content>
-                    <Switch></Switch>
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                    </Switch>
                 </Content>
             </Layout>
         </Router>
