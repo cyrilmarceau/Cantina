@@ -99,9 +99,13 @@ const that = {
                 })
         })
     },
+
     getRecipes(params) {
         return that.showRoute(`${PUBLIC_ROUTE_PRE}/recipes/`, params)
     },
+    deleteRecipe(id) {
+        return that.deleteRoute(`${PUBLIC_ROUTE_PRE}/recipe/${id}`)
+    }
 }
 
 export default that

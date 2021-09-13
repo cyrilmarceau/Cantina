@@ -1,13 +1,16 @@
 import React from 'react'
 
-import { Card } from 'antd'
+import { Card, Modal, message } from 'antd'
 import { EditOutlined, DeleteOutlined, UserOutlined, StarFilled } from '@ant-design/icons'
+
+import API from '../../libs/API'
 
 import styles from './Recipe.module.scss'
 
 const { Meta } = Card
 
 const Recipe = ({
+    _id,
     _imgSrc,
     _imgAlt,
     _title,
@@ -15,7 +18,9 @@ const Recipe = ({
     _person,
     _timingPreparation,
     _level,
+    _fetchRecipes
 }) => {
+
     let stars = []
 
     switch (_level) {
@@ -40,13 +45,27 @@ const Recipe = ({
         default:
             break
     }
+
+    const deleteRecipe = (recipeName, id) => {
+        Modal.confirm({
+            content: `Vous vous apprêter à supprimer ${recipeName}. Confirmer la suppression ?`,
+            onOk() {
+                API.deleteRecipe(id).then(() => {
+                    message.success('La suppression a bien été effectué.', 1, _fetchRecipes())
+                })
+            },
+            cancelText: 'Retour',
+            okText: 'Oui',
+            okType: 'secondary',
+        })
+    }
     return (
         <Card
             className={styles.cardRecipe}
             cover={<img alt={_imgAlt} src={_imgSrc} />}
             actions={[
                 <EditOutlined className={styles.edit} key="edit" />,
-                <DeleteOutlined className={styles.delete} key="delete" />,
+                <DeleteOutlined onClick={() => deleteRecipe(_title, _id)} className={styles.delete} key="delete" />,
             ]}
             hoverable={true}
         >

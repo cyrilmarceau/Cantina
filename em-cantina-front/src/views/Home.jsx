@@ -20,7 +20,6 @@ const Home = () => {
     const fetchRecipes = async () => {
         let params = {}
         let recipesFetch = await API.getRecipes(params)
-
         let newS = _.cloneDeep(state)
         newS.recipes = recipesFetch
         setState(newS)
@@ -34,6 +33,7 @@ const Home = () => {
                         state.recipes.map((el, k) => (
                             <Col key={k} span={6}>
                                 <Recipe
+                                    _id={el.id}
                                     _imgSrc={el.photo}
                                     _imgAlt={el.titre}
                                     _title={el.titre}
@@ -41,6 +41,7 @@ const Home = () => {
                                     _person={el.personnes}
                                     _timingPreparation={el.tempsPreparation}
                                     _level={el.niveau}
+                                    _fetchRecipes={fetchRecipes}
                                 />
                             </Col>
                         ))
