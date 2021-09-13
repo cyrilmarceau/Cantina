@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import API from '../libs/API'
 
-import Recipe from '../components/Recipe'
+import Recipe from '../components/recipe/Recipe'
 
 import { Row, Col, Spin } from 'antd'
 
@@ -29,15 +29,18 @@ const Home = () => {
     return (
         <>
             <div className="ct-container">
-                <Row>
+                <Row gutter={[48, 48]}>
                     {!_.isNil(state.recipes) ? (
                         state.recipes.map((el, k) => (
-                            <Col span={6}>
+                            <Col key={k} span={6}>
                                 <Recipe
                                     _imgSrc={el.photo}
                                     _imgAlt={el.titre}
                                     _title={el.titre}
                                     _description={el.description}
+                                    _person={el.personnes}
+                                    _timingPreparation={el.tempsPreparation}
+                                    _level={el.niveau}
                                 />
                             </Col>
                         ))

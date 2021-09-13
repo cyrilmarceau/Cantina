@@ -6,6 +6,8 @@ import { Layout, Menu } from 'antd'
 
 import { HomeOutlined, SearchOutlined, StarOutlined } from '@ant-design/icons'
 
+import styles from './Header.module.scss'
+
 const { Header } = Layout
 
 const HeaderLayout = () => {
@@ -31,7 +33,7 @@ const HeaderLayout = () => {
         },
     ]
     return (
-        <Header>
+        <Header className={styles.headerContainer}>
             <Menu theme="dark" mode="horizontal">
                 {menu.map((el, i) => {
                     return (

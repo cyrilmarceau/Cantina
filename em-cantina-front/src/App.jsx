@@ -4,8 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { Layout } from 'antd'
 
-import HeaderLayout from './components/layout/HeaderLayout'
+import HeaderLayout from './components/layout/header/HeaderLayout'
+
 import Home from './views/Home'
+
+import './App.scss'
 
 const { Content } = Layout
 

@@ -1,0 +1,28 @@
+.cardRecipe {
+    width: 320px;
+
+    .edit {
+    }
+
+    .delete {
+    }
+
+    .cardPersonTiming {
+        display: flex;
+        margin: 12px 0;
+
+        .userIcon {
+            margin-right: 8px;
+
+            .icon {
+                margin-right: 3px;
+            }
+        }
+    }
+
+    .stars {
+        svg {
+            fill: rgb(231, 231, 68);
+        }
+    }
+}
