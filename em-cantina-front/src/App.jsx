@@ -7,6 +7,7 @@ import { Layout } from 'antd'
 import HeaderLayout from './components/layout/header/HeaderLayout'
 
 import Home from './views/Home'
+import Detail from './views/Detail'
 
 import './App.scss'
 
@@ -20,6 +21,7 @@ const App = () => {
                 <Content>
                     <Switch>
                         <Route exact path="/" component={Home} />
+                        <Route path="/recipe/:id" component={Detail} />
                     </Switch>
                 </Content>
             </Layout>

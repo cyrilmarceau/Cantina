@@ -1,0 +1,50 @@
+  
+[
+    {
+        "type": "text",
+        "displayLabel": false,
+        "key": "title",
+        "label": "Titre",
+        "rules": []
+    },
+    {
+        "type": "select",
+        "displayLabel": false,
+        "key": "difficulty",
+        "label": "Difficulté",
+        "options": [
+            {
+                "key": "all",
+                "value": "Tous"
+            },
+            {
+                "key": "padawan",
+                "value": "Padawan"
+            },
+            {
+                "key": "jedi",
+                "value": "Jedi"
+            },
+            {
+                "key": "maitre",
+                "value": "Maitre"
+            }
+        ]
+    },
+    {
+        "type": "rangeNumber",
+        "displayLabel": false,
+        "key": "numberPeople",
+        "label": "Nombre de personne",
+        "rules": []
+    },
+    {
+        "type": "number",
+        "displayLabel": false,
+        "key": "time",
+        "label": "Temps de préparation",
+        "min": 0,
+        "max": 9999999999,
+        "rules": []
+    }
+]

@@ -45,7 +45,7 @@ const that = {
                     if (
                         !_.isNil(err.response) &&
                         !_.isNil(err.response.status) &&
-                        err.response.status != 404
+                        err.response.status !== 404
                     ) {
                         message.error('Une erreur est survenue.')
                     }
@@ -103,9 +103,10 @@ const that = {
     getRecipes(params) {
         return that.showRoute(`${PUBLIC_ROUTE_PRE}/recipes/`, params)
     },
+
     deleteRecipe(id) {
         return that.deleteRoute(`${PUBLIC_ROUTE_PRE}/recipe/${id}`)
-    }
+    },
 }
 
 export default that
