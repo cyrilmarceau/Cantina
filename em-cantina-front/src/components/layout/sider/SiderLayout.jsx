@@ -4,15 +4,15 @@ import { Layout, Menu } from 'antd'
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    SearchOutlined,
-    StarOutlined,
     HomeOutlined,
+    AppstoreAddOutlined,
 } from '@ant-design/icons'
 
 import { Switch, Route, NavLink } from 'react-router-dom'
 
 import Home from '../../../views/Home'
 import Detail from '../../../views/Detail'
+import Create from '../../../views/Create'
 
 import './SiderLayout.module.scss'
 
@@ -22,22 +22,10 @@ const SiderLayout = () => {
     const menu = [
         { to: '/', activeClass: 'selected', name: 'Liste des recettes', icon: <HomeOutlined /> },
         {
-            to: '/',
-            activeClass: 'selected',
-            name: 'Détail',
-            icon: <SearchOutlined />,
-        },
-        {
-            to: '/favoris',
+            to: '/create',
             activeClass: 'selected',
             name: 'Ajouter',
-            icon: <StarOutlined />,
-        },
-        {
-            to: '/favoris',
-            activeClass: 'selected',
-            name: 'Modifier',
-            icon: <StarOutlined />,
+            icon: <AppstoreAddOutlined />,
         },
     ]
 
@@ -50,7 +38,7 @@ const SiderLayout = () => {
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="logo" />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
                     {menu.map((el, i) => {
                         return (
                             <Menu.Item key={i} icon={el.icon}>
@@ -81,6 +69,7 @@ const SiderLayout = () => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/recipe/:id" component={Detail} />
+                        <Route path="/create/" component={Create} />
                     </Switch>
                 </Content>
             </Layout>

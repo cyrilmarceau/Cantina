@@ -2,12 +2,13 @@ import FormNumberInput from './FormNumberInput'
 import FormTextInput from './FormTextInput'
 import FormRangeNumberInput from './FormRangeNumberInput'
 import FormSelect from './FormSelect'
+import FormTextAeraInput from './FormTextAeraInput'
 
 import _ from 'lodash'
 
 import style from './main.module.scss'
 
-function FormBuilder({ fieldsList, formInst = null, className = '' }) {
+function FormBuilder({ fieldsList, formInst = null, fromDynamic, className = '' }) {
     return (
         <div className={style.ctFormBuilder + className}>
             {_.isArray(fieldsList) &&
@@ -18,6 +19,7 @@ function FormBuilder({ fieldsList, formInst = null, className = '' }) {
                         case 'text':
                             render = (
                                 <FormTextInput
+                                    fromDynamic={fromDynamic}
                                     field={fl}
                                     formInst={formInst}
                                     key={'fl-' + fl.key}
@@ -27,6 +29,7 @@ function FormBuilder({ fieldsList, formInst = null, className = '' }) {
                         case 'number':
                             render = (
                                 <FormNumberInput
+                                    fromDynamic={fromDynamic}
                                     field={fl}
                                     formInst={formInst}
                                     key={'fl-' + fl.key}
@@ -36,6 +39,7 @@ function FormBuilder({ fieldsList, formInst = null, className = '' }) {
                         case 'select':
                             render = (
                                 <FormSelect
+                                    fromDynamic={fromDynamic}
                                     field={fl}
                                     formInst={formInst}
                                     key={'fl-' + fl.key}
@@ -45,6 +49,17 @@ function FormBuilder({ fieldsList, formInst = null, className = '' }) {
                         case 'rangeNumber':
                             render = (
                                 <FormRangeNumberInput
+                                    fromDynamic={fromDynamic}
+                                    field={fl}
+                                    formInst={formInst}
+                                    key={'fl-' + fl.key}
+                                />
+                            )
+                            break
+                        case 'textaera':
+                            render = (
+                                <FormTextAeraInput
+                                    fromDynamic={fromDynamic}
                                     field={fl}
                                     formInst={formInst}
                                     key={'fl-' + fl.key}
