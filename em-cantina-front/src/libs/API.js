@@ -6,7 +6,7 @@ import moment from 'moment'
 
 import _ from 'lodash'
 
-var momentDurationFormatSetup = require("moment-duration-format");
+var momentDurationFormatSetup = require('moment-duration-format')
 
 const PUBLIC_ROUTE_PRE = '/api'
 
@@ -116,16 +116,20 @@ const that = {
         return that.showRoute(`${PUBLIC_ROUTE_PRE}/recipe/${id}`)
     },
 
-    format : {
+    createRecipe(values = {}) {
+        return that.createRoute(`${PUBLIC_ROUTE_PRE}/recipes`, values)
+    },
+
+    format: {
         convertTime(hours) {
-           if(hours > 60) {
+            if (hours > 60) {
                 return moment.duration(hours, 'minutes').format('HH:mm')
-           } else {
-               return hours + ' min'
-           }
-        //    
-        }
-    }
+            } else {
+                return hours + ' min'
+            }
+            //
+        },
+    },
 }
 
 export default that

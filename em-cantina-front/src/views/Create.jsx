@@ -1,18 +1,52 @@
 import React from 'react'
 
-import { Form, Button } from 'antd'
+import { Form, Button, message } from 'antd'
 
 import { MinusCircleOutlined } from '@ant-design/icons'
+
+import { useHistory } from 'react-router-dom'
 
 import create from '../fields/create.json'
 
 import FormBuilder from '../formBuilder/main'
 
+import API from '../libs/API'
+
 console.log(create)
 
 const Create = () => {
+    let history = useHistory()
+
     const onFinish = (values) => {
+        let formatRecipe = {}
+        let formatIngredient = []
+        let ingredients = []
+        let steps = []
+
+        // Format to array
+        values.recipes.forEach((el) => {
+            ingredients.push(el.quantity.toString() + el.type, el.contain)
+        })
+        values.recipesStep.forEach((el) => {
+            steps.push(el.step)
+        })
+
+        formatIngredient.push(ingredients)
+
+        // Format to JSON
+        formatRecipe.titre = values.title
+        formatRecipe.description = values.description
+        formatRecipe.niveau = values.difficulty
+        formatRecipe.personnes = values.preparationTime
+        formatRecipe.tempsPreparation = values.preparationTime
+        formatRecipe.ingredients = formatIngredient
+        formatRecipe.etapes = steps
+
+        API.createRecipe(formatRecipe).then(() => {
+            message.success("L'ajout a bien été effectué", 1, history.push('/'))
+        })
         console.log('Received values of form:', values)
+        console.log('new format', formatRecipe)
     }
 
     return (
@@ -60,7 +94,7 @@ const Create = () => {
                 )}
             </Form.List>
             <Form.List
-                name={['recipes', 'recipesStep']}
+                name={['recipesStep']}
                 rules={[
                     {
                         validator: async (_, recipesStep) => {
