@@ -3,7 +3,7 @@ import React from 'react'
 import { Card, Modal, message } from 'antd'
 import { EditOutlined, DeleteOutlined, UserOutlined, StarFilled } from '@ant-design/icons'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import API from '../../libs/API'
 
@@ -20,10 +20,11 @@ const Recipe = ({
     _person,
     _timingPreparation,
     _level,
-    _fetchRecipes
+    _fetchRecipes,
 }) => {
-
     let stars = []
+
+    let history = useHistory()
 
     switch (_level) {
         case 'padawan':
@@ -64,10 +65,23 @@ const Recipe = ({
     return (
         <Card
             className={styles.cardRecipe}
-            cover={<Link to={`recipe/${_id}`}> <img style={{width: 320}} alt={_imgAlt} src={_imgSrc} /> </Link>}
+            cover={
+                <Link to={`recipe/${_id}`}>
+                    {' '}
+                    <img style={{ width: 320 }} alt={_imgAlt} src={_imgSrc} />{' '}
+                </Link>
+            }
             actions={[
-                <EditOutlined className={styles.edit} key="edit" />,
-                <DeleteOutlined onClick={() => deleteRecipe(_title, _id)} className={styles.delete} key="delete" />,
+                <EditOutlined
+                    onClick={() => history.push(`/recette/edit/${_id}`)}
+                    className={styles.edit}
+                    key="edit"
+                />,
+                <DeleteOutlined
+                    onClick={() => deleteRecipe(_title, _id)}
+                    className={styles.delete}
+                    key="delete"
+                />,
             ]}
             hoverable={true}
         >

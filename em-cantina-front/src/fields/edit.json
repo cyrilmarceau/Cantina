@@ -1,0 +1,102 @@
+[
+    {
+        "type": "text",
+        "displayLabel": true,
+        "key": "title",
+        "label": "Titre de la recette",
+        "rules": [{ "required": true, "message": "Veuillez remplir le champ titre" }]
+    },
+    {
+        "type": "text",
+        "displayLabel": true,
+        "key": "description",
+        "label": "Description de la recette",
+        "rules": [{ "required": true, "message": "Veuillez remplir le champ description" }]
+    },
+    {
+        "type": "number",
+        "displayLabel": true,
+        "key": "people",
+        "label": "Nombre de personne",
+        "min": 0,
+        "max": 1000,
+        "rules": [{ "required": true, "message": "Veuillez remplir le nombre de personne" }]
+    },
+    {
+        "type": "select",
+        "displayLabel": true,
+        "key": "difficulty",
+        "label": "Difficulté",
+        "options": [
+            {
+                "key": "padawan",
+                "value": "Padawan"
+            },
+            {
+                "key": "jedi",
+                "value": "Jedi"
+            },
+            {
+                "key": "maitre",
+                "value": "Maitre"
+            }
+        ]
+    },
+    {
+        "type": "number",
+        "displayLabel": true,
+        "key": "quantity",
+        "label": "Quantité",
+        "min": 0,
+        "max": 9999999999,
+        "rules": []
+    },
+    {
+        "type": "select",
+        "displayLabel": true,
+        "key": "type",
+        "label": "Type",
+        "options": [
+            {
+                "key": "ml",
+                "value": "ml"
+            },
+            {
+                "key": "cl",
+                "value": "cl"
+            }
+        ]
+    },
+    {
+        "type": "text",
+        "displayLabel": true,
+        "key": "contain",
+        "label": "Contenue",
+        "rules": []
+    },
+    {
+        "type": "textaera",
+        "displayLabel": true,
+        "key": "quantity",
+        "label": "Quantité",
+        "min": 0,
+        "max": 9999999999,
+        "rules": []
+    },
+    {
+        "type": "number",
+        "displayLabel": true,
+        "key": "preparationTime",
+        "label": "Temps de préparation",
+        "min": 0,
+        "max": 1000,
+        "rules": [{ "required": true, "message": "Veuillez remplir le temps de préparation" }]
+    },
+    {
+        "type": "text",
+        "displayLabel": true,
+        "key": "pictureURL",
+        "label": "URL de la photo",
+        "rules": []
+    }
+]

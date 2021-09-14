@@ -13,6 +13,7 @@ import { Switch, Route, NavLink } from 'react-router-dom'
 import Home from '../../../views/Home'
 import Detail from '../../../views/Detail'
 import Create from '../../../views/Create'
+import Edit from '../../../views/Edit'
 
 import './SiderLayout.module.scss'
 
@@ -70,6 +71,7 @@ const SiderLayout = () => {
                         <Route exact path="/" component={Home} />
                         <Route path="/recipe/:id" component={Detail} />
                         <Route path="/create/" component={Create} />
+                        <Route path="/recette/edit/:id" component={Edit} />
                     </Switch>
                 </Content>
             </Layout>
