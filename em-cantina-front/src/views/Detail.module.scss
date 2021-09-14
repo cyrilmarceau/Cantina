@@ -1,0 +1,65 @@
+.description {
+    color: gray;
+}
+
+.additionalInformations {
+    display: flex;
+
+    // Difficulty
+    .stars {
+        margin-right: 15px;
+        svg {
+            fill: rgb(231, 231, 68);
+        }
+    }
+
+    .people {
+        display: flex;
+
+        .numberPeople {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    }
+}
+
+.hours {
+    margin-bottom: 15px;
+    svg {
+        margin-right: 10px;
+    }
+}
+
+// h3
+.title {
+    margin: 25px 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.recipeImg {
+    height: 700px;
+}
+
+.ingredients {
+    border-bottom: 2px solid black;
+    margin-bottom: 15px;
+    .listIngredients {
+        span {
+            &:first-child {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.steps {
+    border-bottom: 2px solid black;
+    margin-bottom: 15px;
+}
+
+.editBtn {
+    margin-right: 10px;
+}

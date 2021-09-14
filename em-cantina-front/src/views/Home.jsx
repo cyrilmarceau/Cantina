@@ -38,7 +38,7 @@ const Home = () => {
     }
 
     const filtersRecipe = (changedValues, allValues) => {
-
+        console.log(allValues)
         let newS = _.cloneDeep(state)
 
         // Format string to number
@@ -77,27 +77,25 @@ const Home = () => {
                         (!state.filter.title || recipe.titre.includes(state.filter.title)) &&
                         (!state.filter.difficulty || recipe.niveau.includes(state.filter.difficulty)) &&
                         (!state.filter.time || recipe.tempsPreparation < state.filter.time))
-                        
                         .map((el, k) => {
-                                return (
-                                    <Col key={k} span={6}>
-                                        <Recipe
-                                            _id={el.id}
-                                            _imgSrc={el.photo}
-                                            _imgAlt={el.titre}
-                                            _title={el.titre}
-                                            _description={el.description}
-                                            _person={el.personnes}
-                                            _timingPreparation={el.tempsPreparation}
-                                            _level={el.niveau}
-                                            _fetchRecipes={fetchRecipes}
-                                        />
-                                    </Col>
-                                )
-                            }
-                        )) : (
+                            return (
+                                <Col key={k} span={6}>
+                                    <Recipe
+                                        _id={el.id}
+                                        _imgSrc={el.photo}
+                                        _imgAlt={el.titre}
+                                        _title={el.titre}
+                                        _description={el.description}
+                                        _person={el.personnes}
+                                        _timingPreparation={el.tempsPreparation}
+                                        _level={el.niveau}
+                                        _fetchRecipes={fetchRecipes}
+                                    />
+                                </Col>
+                            )
+                        })) : (
                             <Spin />
-                    )}
+                        )}
                 </Row>
             </div>
         </>
