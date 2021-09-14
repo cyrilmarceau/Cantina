@@ -105,7 +105,10 @@ const Detail = () => {
                         <Col span={12}>
                             <img
                                 className={style.recipeImg}
-                                src={state.recipe.photo}
+                                src={
+                                    state.recipe.photo ||
+                                    'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+                                }
                                 alt={state.recipe.description}
                             />
                         </Col>

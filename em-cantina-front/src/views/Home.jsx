@@ -19,14 +19,13 @@ const Home = () => {
             title: '',
             difficulty: '',
             numberPeople: {},
-            time: ''
-        }
+            time: '',
+        },
     })
 
     useEffect(() => {
         fetchRecipes()
     }, [])
-    
 
     const fetchRecipes = async () => {
         let params = {}
@@ -38,7 +37,6 @@ const Home = () => {
     }
 
     const filtersRecipe = (changedValues, allValues) => {
-        console.log(allValues)
         let newS = _.cloneDeep(state)
 
         // Format string to number
@@ -63,7 +61,7 @@ const Home = () => {
                             form={form}
                             ref={formRef}
                             onValuesChange={filtersRecipe}
-                            initialValues={{ difficulty:'padawan' }}
+                            initialValues={{ difficulty: 'padawan' }}
                         >
                             <FormBuilder fieldsList={filter} />
                         </Form>
@@ -73,29 +71,39 @@ const Home = () => {
                 <Row gutter={[48, 48]}>
                     {!_.isNil(state.recipes) ? (
                         state.recipes
-                        .filter(recipe =>
-                        (!state.filter.title || recipe.titre.includes(state.filter.title)) &&
-                        (!state.filter.difficulty || recipe.niveau.includes(state.filter.difficulty)) &&
-                        (!state.filter.time || recipe.tempsPreparation < state.filter.time))
-                        .map((el, k) => {
-                            return (
-                                <Col key={k} span={6}>
-                                    <Recipe
-                                        _id={el.id}
-                                        _imgSrc={el.photo}
-                                        _imgAlt={el.titre}
-                                        _title={el.titre}
-                                        _description={el.description}
-                                        _person={el.personnes}
-                                        _timingPreparation={el.tempsPreparation}
-                                        _level={el.niveau}
-                                        _fetchRecipes={fetchRecipes}
-                                    />
-                                </Col>
+                            .filter(
+                                (recipe) =>
+                                    (!state.filter.title ||
+                                        recipe.titre.includes(state.filter.title)) &&
+                                    (!state.filter.difficulty ||
+                                        recipe.niveau.includes(state.filter.difficulty)) &&
+                                    ((!state.filter.numberPeople.min &&
+                                        !state.filter.numberPeople.max) ||
+                                        (recipe.personnes >= state.filter.numberPeople.min &&
+                                            recipe.personnes <= state.filter.numberPeople.max)) &&
+                                    (!state.filter.time ||
+                                        recipe.tempsPreparation >= state.filter.time)
                             )
-                        })) : (
-                            <Spin />
-                        )}
+                            .map((el, k) => {
+                                return (
+                                    <Col key={k} span={6}>
+                                        <Recipe
+                                            _id={el.id}
+                                            _imgSrc={el.photo}
+                                            _imgAlt={el.titre}
+                                            _title={el.titre}
+                                            _description={el.description}
+                                            _person={el.personnes}
+                                            _timingPreparation={el.tempsPreparation}
+                                            _level={el.niveau}
+                                            _fetchRecipes={fetchRecipes}
+                                        />
+                                    </Col>
+                                )
+                            })
+                    ) : (
+                        <Spin />
+                    )}
                 </Row>
             </div>
         </>

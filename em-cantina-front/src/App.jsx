@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
-import { BrowserRouter as Router} from 'react-router-dom'
+import React, { useState } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import SiderLayout from './components/layout/header/SiderLayout'
+import SiderLayout from './components/layout/sider/SiderLayout'
 
 import './App.scss'
 

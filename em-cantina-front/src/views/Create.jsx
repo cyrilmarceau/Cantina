@@ -12,7 +12,7 @@ import FormBuilder from '../formBuilder/main'
 
 import API from '../libs/API'
 
-console.log(create)
+import _ from 'lodash'
 
 const Create = () => {
     let history = useHistory()
@@ -25,7 +25,11 @@ const Create = () => {
 
         // Format to array
         values.recipes.forEach((el) => {
-            ingredients.push(el.quantity.toString() + el.type, el.contain)
+            if (!_.isNil(el.type)) {
+                ingredients.push(el.quantity.toString() + el.type, el.contain)
+            } else {
+                ingredients.push(el.quantity.toString() + '', el.contain)
+            }
         })
         values.recipesStep.forEach((el) => {
             steps.push(el.step)
@@ -37,20 +41,22 @@ const Create = () => {
         formatRecipe.titre = values.title
         formatRecipe.description = values.description
         formatRecipe.niveau = values.difficulty
-        formatRecipe.personnes = values.preparationTime
+        formatRecipe.personnes = values.people
         formatRecipe.tempsPreparation = values.preparationTime
         formatRecipe.ingredients = formatIngredient
         formatRecipe.etapes = steps
-
+        console.log(values)
         API.createRecipe(formatRecipe).then(() => {
             message.success("L'ajout a bien été effectué", 1, history.push('/'))
         })
-        console.log('Received values of form:', values)
-        console.log('new format', formatRecipe)
     }
 
     return (
-        <Form name="dynamic_form_item" onFinish={onFinish}>
+        <Form
+            initialValues={{ difficulty: 'padawan' }}
+            name="dynamic_form_item"
+            onFinish={onFinish}
+        >
             <FormBuilder fieldsList={create[2]} />
             <Form.List
                 name="recipes"
