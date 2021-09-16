@@ -8,10 +8,8 @@ const FormNumberInput = ({ field, formInst, fromDynamic }) => {
             label={field.displayLabel && field.label}
             name={fromDynamic === true ? [formInst.key, 'quantity'] : field.key}
             rules={field.rules}
-            className={style.inputNumber}
         >
             <InputNumber
-                style={{ width: '256px' }}
                 min={field.min}
                 max={field.max}
                 placeholder={field.label}

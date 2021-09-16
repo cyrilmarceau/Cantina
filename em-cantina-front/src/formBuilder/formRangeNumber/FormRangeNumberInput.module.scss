@@ -1,0 +1,21 @@
+.rangeNumberInput {
+    display: flex;
+
+    .tield {
+        padding: 0 10px;
+        text-align: center;
+        background-color: #e0e0e0;
+        color: rgba(59, 59, 59, 0.7);
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+:global .remove-margin {
+    .ant-form-item {
+        margin: 0 !important;
+    }
+}

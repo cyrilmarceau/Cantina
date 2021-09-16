@@ -1,10 +1,16 @@
 .cardRecipe {
     width: 320px;
+    .cardRecipe__img {
+        width: 320px;
+    }
 
     .edit {
     }
 
     .delete {
+        &:hover {
+            color: red !important;
+        }
     }
 
     .cardPersonTiming {

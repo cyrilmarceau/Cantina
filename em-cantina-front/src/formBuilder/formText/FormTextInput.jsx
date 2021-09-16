@@ -8,8 +8,9 @@ const FormTextInput = ({ field, formInst, fromDynamic }) => {
             label={field.displayLabel && field.label}
             name={fromDynamic === true ? [formInst.key, 'contain'] : field.key}
             rules={field.rules}
+            className={style.inputContainer}
         >
-            <Input placeholder={field.label} />
+            <Input className={style.inputText} placeholder={field.label} />
         </Form.Item>
     )
 }

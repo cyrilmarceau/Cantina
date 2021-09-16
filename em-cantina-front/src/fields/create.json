@@ -1,67 +1,22 @@
 [
     [
         {
-            "type": "number",
-            "displayLabel": false,
-            "key": "quantity",
-            "label": "Quantité",
-            "min": 0,
-            "max": 9999999999,
-            "rules": []
-        },
-        {
-            "type": "select",
-            "displayLabel": false,
-            "key": "type",
-            "label": "Type",
-            "options": [
-                {
-                    "key": "ml",
-                    "value": "ml"
-                },
-                {
-                    "key": "cl",
-                    "value": "cl"
-                }
-            ]
-        },
-        {
             "type": "text",
-            "displayLabel": false,
-            "key": "contain",
-            "label": "Contenue",
-            "rules": []
-        }
-    ],
-    [
-        {
-            "type": "textaera",
-            "displayLabel": false,
-            "key": "quantity",
-            "label": "Quantité",
-            "min": 0,
-            "max": 9999999999,
-            "rules": []
-        }
-    ],
-    [
-        {
-            "type": "text",
-            "displayLabel": false,
+            "displayLabel": true,
             "key": "title",
             "label": "Titre de la recette",
             "rules": [{ "required": true, "message": "Veuillez remplir le champ titre" }]
         },
         {
             "type": "text",
-            "displayLabel": false,
+            "displayLabel": true,
             "key": "description",
             "label": "Description de la recette",
             "rules": [{ "required": true, "message": "Veuillez remplir le champ description" }]
         },
         {
             "type": "number",
-            "displayLabel": false,
+            "displayLabel": true,
             "key": "people",
             "label": "Nombre de personne",
             "min": 0,
@@ -70,7 +25,7 @@
         },
         {
             "type": "select",
-            "displayLabel": false,
+            "displayLabel": true,
             "key": "difficulty",
             "label": "Difficulté",
             "options": [
@@ -86,11 +41,12 @@
                     "key": "maitre",
                     "value": "Maitre"
                 }
-            ]
+            ],
+            "rules": [{ "required": true }]
         },
         {
             "type": "number",
-            "displayLabel": false,
+            "displayLabel": true,
             "key": "preparationTime",
             "label": "Temps de préparation",
             "min": 0,
@@ -99,10 +55,61 @@
         },
         {
             "type": "text",
-            "displayLabel": false,
+            "displayLabel": true,
             "key": "pictureURL",
             "label": "URL de la photo",
             "rules": []
+        }
+    ],
+
+    [
+        {
+            "type": "number",
+            "displayLabel": true,
+            "key": "quantity",
+            "label": "Quantité",
+            "min": 0,
+            "max": 9999999999,
+            "rules": [{ "required": true, "message": "Veuillez remplir la quantité" }]
+        },
+        {
+            "type": "select",
+            "displayLabel": true,
+            "key": "type",
+            "label": "Type",
+            "options": [
+                {
+                    "key": "ml",
+                    "value": "ml"
+                },
+                {
+                    "key": "cl",
+                    "value": "cl"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "displayLabel": true,
+            "key": "contain",
+            "label": "Contenu",
+            "rules": [{ "required": true, "message": "Veuillez remplir un contenu" }]
+        }
+    ],
+
+    [
+        {
+            "type": "textaera",
+            "displayLabel": true,
+            "key": "step",
+            "label": "Etape",
+            "min": 0,
+            "max": 9999999999,
+            "rules": [
+                {
+                    "required": true
+                }
+            ]
         }
     ]
 ]

@@ -1,8 +1,8 @@
-import FormNumberInput from './FormNumberInput'
-import FormTextInput from './FormTextInput'
-import FormRangeNumberInput from './FormRangeNumberInput'
-import FormSelect from './FormSelect'
-import FormTextAeraInput from './FormTextAeraInput'
+import FormNumberInput from './formNumber/FormNumberInput'
+import FormRangeNumberInput from './formRangeNumber/FormRangeNumberInput'
+import FormSelect from './formSelect/FormSelect'
+import FormTextAeraInput from './formTextAera/FormTextAeraInput'
+import FormTextInput from './formText/FormTextInput'
 
 import _ from 'lodash'
 
@@ -10,7 +10,7 @@ import style from './main.module.scss'
 
 function FormBuilder({ fieldsList, formInst = null, fromDynamic, className = '' }) {
     return (
-        <div className={style.ctFormBuilder + className}>
+        <div className={className}>
             {_.isArray(fieldsList) &&
                 fieldsList.map((fl) => {
                     let render = ''

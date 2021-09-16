@@ -67,8 +67,7 @@ const Recipe = ({
             className={styles.cardRecipe}
             cover={
                 <Link to={`recipe/${_id}`}>
-                    {' '}
-                    <img style={{ width: 320 }} alt={_imgAlt} src={_imgSrc} />{' '}
+                    <img className={styles.cardRecipe__img} alt={_imgAlt} src={_imgSrc} />
                 </Link>
             }
             actions={[

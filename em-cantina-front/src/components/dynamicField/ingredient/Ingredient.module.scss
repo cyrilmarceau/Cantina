@@ -1,0 +1,17 @@
+.containerEditIngredient {
+    display: flex;
+}
+
+.layout-create-ingredients-input {
+    display: flex;
+    margin: 25px !important;
+    .ant-form-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &:nth-child(2) {
+            margin: 0 10px;
+        }
+    }
+}

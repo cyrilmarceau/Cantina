@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd'
 
-import style from './FormNumberInput.module.scss'
+import style from './FormTextAeraInput.module.scss'
 
 const { TextArea } = Input
 
@@ -12,7 +12,7 @@ const FormNumberInput = ({ field, formInst, fromDynamic }) => {
             rules={field.rules}
             className={style.inputNumber}
         >
-            <TextArea style={{ width: '256px' }} placeholder={field.label} />
+            <TextArea placeholder={field.label} />
         </Form.Item>
     )
 }

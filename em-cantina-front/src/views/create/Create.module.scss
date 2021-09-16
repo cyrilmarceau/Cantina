@@ -1,0 +1,45 @@
+.formBuilder {
+    display: flex;
+    flex-direction: column;
+}
+
+:global .layout-create-input {
+    .ant-form-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .ant-form-item-control {
+            width: 60%;
+        }
+
+        .ant-input-number {
+            width: 25%;
+        }
+    }
+}
+
+:global .layout-create-ingredients-input {
+    display: flex;
+    .ant-form-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &:nth-child(2) {
+            margin: 0 10px;
+        }
+    }
+}
+
+:global .layout-create-step-input {
+    .ant-form-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .ant-form-item-control {
+            width: 60%;
+        }
+    }
+}

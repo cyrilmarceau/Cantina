@@ -1,0 +1,13 @@
+.formBuilderFilter {
+    display: flex;
+}
+
+:global .layout-filter-input {
+    .ant-form-item {
+        margin: 0 5px 24px 5px;
+    }
+
+    .ant-input-number {
+        width: 200px;
+    }
+}

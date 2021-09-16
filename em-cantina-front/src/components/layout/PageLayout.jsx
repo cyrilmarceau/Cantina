@@ -10,18 +10,23 @@ import {
 
 import { Switch, Route, NavLink } from 'react-router-dom'
 
-import Home from '../../../views/Home'
-import Detail from '../../../views/Detail'
-import Create from '../../../views/Create'
-import Edit from '../../../views/Edit'
+import Create from '../../views/create/Create'
+import Detail from '../../views/detail/Detail'
+import Edit from '../../views/edit/Edit'
+import Home from '../../views/home/Home'
 
-import './SiderLayout.module.scss'
+import style from './PageLayout.module.scss'
 
 const { Header, Sider, Content } = Layout
 
-const SiderLayout = () => {
+const PageLayout = () => {
     const menu = [
-        { to: '/', activeClass: 'selected', name: 'Liste des recettes', icon: <HomeOutlined /> },
+        {
+            to: '/',
+            activeClass: 'selected',
+            name: 'Liste des recettes',
+            icon: <HomeOutlined />,
+        },
         {
             to: '/create',
             activeClass: 'selected',
@@ -39,7 +44,12 @@ const SiderLayout = () => {
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="logo" />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
+                <Menu
+                    className={style.menuSideBar}
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={['0']}
+                >
                     {menu.map((el, i) => {
                         return (
                             <Menu.Item key={i} icon={el.icon}>
@@ -53,20 +63,13 @@ const SiderLayout = () => {
             </Sider>
 
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }}>
+                <Header className={`site-layout-background ${style.header}`}>
                     {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                        className: 'trigger',
+                        className: style.trigger,
                         onClick: toggle,
                     })}
                 </Header>
-                <Content
-                    className="site-layout-background"
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280,
-                    }}
-                >
+                <Content className={`site-layout-background ${style.contentLayout}`}>
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/recipe/:id" component={Detail} />
@@ -79,4 +82,4 @@ const SiderLayout = () => {
     )
 }
 
-export default SiderLayout
+export default PageLayout
