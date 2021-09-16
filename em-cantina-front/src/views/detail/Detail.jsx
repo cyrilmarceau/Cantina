@@ -25,11 +25,23 @@ const Detail = () => {
     }, [])
 
     const fetchRecipe = async () => {
-        let recipesFetch = await API.getSpecificRecipe(id)
-
-        let newS = _.cloneDeep(state)
-        newS.recipe = recipesFetch
-        setState(newS)
+        try {
+            let recipesFetch = await API.getSpecificRecipe(id)
+            let newS = _.cloneDeep(state)
+            newS.recipe = recipesFetch
+            setState(newS)
+        } catch (e) {
+            if (e.response.data.errorMessage === 'Aucune recette trouvée') {
+                message
+                    .error(
+                        "La page recherché n'existe pas vous allez être rediriger dans 2 secondes",
+                        2
+                    )
+                    .then(() => {
+                        history.push('/')
+                    })
+            }
+        }
     }
 
     const deleteRecipe = (recipeName, id) => {
@@ -161,7 +173,7 @@ const Detail = () => {
                     </Col>
                 </>
             ) : (
-                <Spin />
+                <Spin className="loading-icon" />
             )}
         </Row>
     )

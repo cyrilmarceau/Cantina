@@ -1,17 +1,16 @@
-.containerEditIngredient {
-    display: flex;
+.container {
+    margin-bottom: 48px !important;
 }
 
-.layout-create-ingredients-input {
-    display: flex;
-    margin: 25px !important;
-    .ant-form-item {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+.layoutEditIngredientsInput {
+    background-color: white;
+    box-shadow: 0px 0px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
 
-        &:nth-child(2) {
-            margin: 0 10px;
-        }
-    }
+.deleteIcon {
+    display: flex;
+    justify-content: center;
+    color: red;
 }

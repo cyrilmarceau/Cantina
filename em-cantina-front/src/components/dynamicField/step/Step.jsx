@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-
-import { Form, Row, Col, Input, Button } from 'antd'
-
 import { MinusCircleOutlined } from '@ant-design/icons'
-
+import { Col, Form, Input, Row } from 'antd'
+import React, { useState } from 'react'
 import style from './Step.module.scss'
 
 const { TextArea } = Input
@@ -17,16 +14,22 @@ const Step = ({ steps }) => {
 
     return (
         <>
-            {stepList.map((el, k) => {
-                return (
-                    <div key={el} className={`${style.layoutCreateStepsInput} input-step`}>
-                        <Form.Item className={`${style.input}`} label="Etape" name="step">
-                            <TextArea defaultValue={el} placeholder="Etapes" />
-                        </Form.Item>
-                        <MinusCircleOutlined onClick={() => removeStep(el)} />
-                    </div>
-                )
-            })}
+            <Row gutter={[48, 48]}>
+                {stepList.map((el, k) => {
+                    return (
+                        <Col span={12}>
+                            <div key={el} className={`${style.layoutCreateStepsInput}`}>
+                                <Form.Item className="input-step" label="Etape" name={[k, 'step']}>
+                                    <TextArea defaultValue={el} placeholder="Etapes" />
+                                </Form.Item>
+                                <div className={style.deleteIcon}>
+                                    <MinusCircleOutlined onClick={() => removeStep(el)} />
+                                </div>
+                            </div>
+                        </Col>
+                    )
+                })}
+            </Row>
         </>
     )
 }

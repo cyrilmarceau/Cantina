@@ -39,7 +39,7 @@ const PageLayout = () => {
         setcollapsed(!collapsed)
     }
 
-    const [collapsed, setcollapsed] = useState('')
+    const [collapsed, setcollapsed] = useState(true)
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -64,10 +64,11 @@ const PageLayout = () => {
 
             <Layout className="site-layout">
                 <Header className={`site-layout-background ${style.header}`}>
-                    {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                        className: style.trigger,
-                        onClick: toggle,
-                    })}
+                    {collapsed ? (
+                        <MenuUnfoldOutlined className={style.trigger} onClick={toggle} />
+                    ) : (
+                        <MenuFoldOutlined className={style.trigger} onClick={toggle} />
+                    )}
                 </Header>
                 <Content className={`site-layout-background ${style.contentLayout}`}>
                     <Switch>

@@ -18,6 +18,8 @@ import style from './Create.module.scss'
 
 const Create = () => {
     let history = useHistory()
+    const [form] = Form.useForm()
+    const formRef = React.createRef()
 
     const onFinish = (values) => {
         let formatRecipe = {}
@@ -52,11 +54,23 @@ const Create = () => {
         })
     }
 
+    // const checkValue = (changedValue, allValues) => {
+    //     console.log(changedValue)
+    //     const reg = new RegExp(/https?:\/\//g)
+    //     if (changedValue.pictureURL.match(reg)) {
+    //         return true
+    //     } else {
+    //     }
+    // }
+
     return (
         <Form
             initialValues={{ difficulty: 'padawan' }}
             name="dynamic_form_item"
+            // onValuesChange={checkValue}
             onFinish={onFinish}
+            form={form}
+            ref={formRef}
         >
             <Row>
                 <Col span={24}>

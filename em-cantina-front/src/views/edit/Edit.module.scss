@@ -1,3 +1,6 @@
+/*
+* Layout from dynamic field
+*/
 .formBuilder {
     display: flex;
     flex-direction: column;
@@ -19,15 +22,36 @@
     }
 }
 
+/*
+* Layout from FormBuilder
+*/
+.layoutEditInput {
+    background-color: white;
+    box-shadow: 0px 0px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+
+    .deleteIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: red;
+    }
+}
+
 :global .layout-edit-ingredients-input {
     display: flex;
+    flex-direction: column;
     .ant-form-item {
         display: flex;
-        flex-direction: column;
         align-items: flex-start;
-
-        &:nth-child(2) {
-            margin: 0 10px;
-        }
     }
+}
+
+.btnActionAddIngredient {
+    margin-bottom: 35px;
+}
+
+.btnActionAddStep {
+    margin: 45px 0;
 }

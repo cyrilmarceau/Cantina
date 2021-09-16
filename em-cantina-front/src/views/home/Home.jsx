@@ -15,7 +15,6 @@ import FormBuilder from '../../formBuilder/main'
 import style from './Home.module.scss'
 
 const Home = () => {
-    console.log('style --- home >>>>>', style)
     const [state, setState] = useState({
         recipes: null,
         filter: {
@@ -58,6 +57,9 @@ const Home = () => {
     return (
         <>
             <Row>
+                <Col span={24}>
+                    <h1>Recette</h1>
+                </Col>
                 <Col span={24}>
                     <Form
                         form={form}
@@ -106,7 +108,7 @@ const Home = () => {
                             )
                         })
                 ) : (
-                    <Spin />
+                    <Spin className="loading-icon" />
                 )}
             </Row>
         </>
