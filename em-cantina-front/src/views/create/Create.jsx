@@ -49,25 +49,20 @@ const Create = () => {
         formatRecipe.tempsPreparation = values.preparationTime
         formatRecipe.ingredients = formatIngredient
         formatRecipe.etapes = steps
+
+        if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
+            formatRecipe.photo = values.pictureURL
+        }
+
         API.createRecipe(formatRecipe).then(() => {
             message.success("L'ajout a bien été effectué", 1, history.push('/'))
         })
     }
 
-    // const checkValue = (changedValue, allValues) => {
-    //     console.log(changedValue)
-    //     const reg = new RegExp(/https?:\/\//g)
-    //     if (changedValue.pictureURL.match(reg)) {
-    //         return true
-    //     } else {
-    //     }
-    // }
-
     return (
         <Form
             initialValues={{ difficulty: 'padawan' }}
             name="dynamic_form_item"
-            // onValuesChange={checkValue}
             onFinish={onFinish}
             form={form}
             ref={formRef}
@@ -88,7 +83,7 @@ const Create = () => {
                         validator: async (_, recipes) => {
                             if (!recipes || recipes.length === 0) {
                                 return Promise.reject(
-                                    new Error('Veuillez ajouter au moin 1 ingrédient.')
+                                    new Error('Veuillez ajouter au moin 1 ingrédient')
                                 )
                             }
                         },
@@ -133,9 +128,7 @@ const Create = () => {
                     {
                         validator: async (_, recipesStep) => {
                             if (!recipesStep || recipesStep.length === 0) {
-                                return Promise.reject(
-                                    new Error('Veuillez ajouter au moin 1 étape.')
-                                )
+                                return Promise.reject(new Error('Veuillez ajouter au moin 1 étape'))
                             }
                         },
                     },

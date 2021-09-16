@@ -58,7 +58,8 @@
             "displayLabel": true,
             "key": "pictureURL",
             "label": "URL de la photo",
-            "rules": []
+            "rules": [],
+            "checkPatern": true
         }
     ],
 

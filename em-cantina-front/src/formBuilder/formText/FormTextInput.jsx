@@ -9,6 +9,20 @@ const FormTextInput = ({ field, formInst, fromDynamic }) => {
             name={fromDynamic === true ? [formInst.key, 'contain'] : field.key}
             rules={field.rules}
             className={style.inputContainer}
+            // eslint-disable-next-line react/jsx-no-duplicate-props
+            rules={
+                field.checkPatern
+                    ? [
+                          {
+                              required: false,
+                          },
+                          {
+                              pattern: /https?:\/\//g,
+                              message: 'Le format dois correspondre à http:// ou https://',
+                          },
+                      ]
+                    : field.rules
+            }
         >
             <Input className={style.inputText} placeholder={field.label} />
         </Form.Item>
