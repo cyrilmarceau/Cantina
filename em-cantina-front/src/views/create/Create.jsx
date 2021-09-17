@@ -100,6 +100,7 @@ const Create = () => {
                                                 fromDynamic={true}
                                                 fieldsList={create[1]}
                                                 className={`${style.formBuilder} layout-create-ingredients-input`}
+                                                isCreateOrAdd={true}
                                             />
                                             {fields.length > 1 ? (
                                                 <div className={style.deleteIcon}>
@@ -177,9 +178,10 @@ const Create = () => {
                     </>
                 )}
             </Form.List>
+            <hr className={style.line} />
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Submit
+                    Créer cette étape
                 </Button>
             </Form.Item>
         </Form>

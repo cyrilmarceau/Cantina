@@ -12,6 +12,8 @@ import filter from '../../fields/filter.json'
 
 import FormBuilder from '../../components/formBuilder/main'
 
+import OptionsContext from '../../context/OptionsContext'
+
 import style from './Home.module.scss'
 
 const Home = () => {
@@ -24,6 +26,8 @@ const Home = () => {
             time: '',
         },
     })
+
+    const { options, setOptions } = useContext(OptionsContext)
 
     useEffect(() => {
         fetchRecipes()
@@ -38,16 +42,15 @@ const Home = () => {
             let type = []
             state.recipes.forEach((el) => {
                 el.ingredients.forEach((el) => {
-                    // console.log(el)
                     const regex = el[0].match(/^(?<nombre>\d+|½)(?<string>\D+)?$/)?.groups
                     if (!_.isNil(regex) && !_.isNil(regex.string)) {
-                        // console.log(regex)
                         type.push(regex.string)
                     }
                 })
             })
 
-            // API.utils.createOption(_.uniq(type))
+            setOptions(_.uniq(type))
+            API.utils.setOptionsLs(_.uniq(type))
         }
     }
 

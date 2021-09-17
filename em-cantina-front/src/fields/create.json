@@ -108,7 +108,8 @@
             "max": 9999999999,
             "rules": [
                 {
-                    "required": true
+                    "required": true,
+                    "message": "Veuillez remplir cette étape"
                 }
             ]
         }

@@ -132,21 +132,13 @@ const that = {
     },
 
     utils: {
-        // createOption(optionList) {
-        //     let opt = {}
-        //     opt['options'] = optionList
-        //     console.log(opt)
-        //     const resultJSON = JSON.stringify(opt, null)
-        //     fs.appendFile('append.txt', 'yoyo')
-        //     // fs.appendFile('./', 'options.json', resultJSON, (err) => {
-        //     //     if (err) throw err
-        //     //     console.log('Fichier créé !')
-        //     // })
-        //     // let options = JSON.stringify(optionList)
-        //     // fs.writeFile('option.json', options, (err, result) => {
-        //     //     if (err) console.log('error', err)
-        //     // })
-        // },
+        setOptionsLs(optionsList) {
+            return localStorage.setItem('options', JSON.stringify(optionsList))
+        },
+        getOptionsLs(key) {
+            let ls = localStorage.getItem(key)
+            return JSON.parse(ls)
+        },
     },
 }
 
