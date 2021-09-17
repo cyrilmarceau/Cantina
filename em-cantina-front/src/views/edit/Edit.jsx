@@ -14,6 +14,7 @@ import FormBuilder from '../../components/formBuilder/main'
 
 import Ingredient from '../../components/dynamicField/ingredient/Ingredient'
 import Step from '../../components/dynamicField/step/Step'
+import FormList from '../../components/formBuilder/FormList/FormList'
 
 import API from '../../libs/API'
 
@@ -132,96 +133,26 @@ const Edit = () => {
                         <h2>Ingredients</h2>
                         <Ingredient ingredients={state.recipe.ingredients} />
 
-                        <Form.List name="recipes">
-                            {(fields, { add, remove }, { errors }) => (
-                                <>
-                                    <Row gutter={[48, 48]}>
-                                        {fields.map((field, k) => (
-                                            <Col key={k} xs={24} md={12} lg={8}>
-                                                <div className={`form-builder-input`}>
-                                                    <FormBuilder
-                                                        formInst={field}
-                                                        fromDynamic={true}
-                                                        fieldsList={edit[1]}
-                                                    />
-                                                    <div className={style.deleteIcon}>
-                                                        <MinusCircleOutlined
-                                                            onClick={() => remove(field.name)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                        ))}
-
-                                        <Col span={24}>
-                                            <div className={style.btnActionAddIngredient}>
-                                                <Form.Item>
-                                                    <Button type="primary" onClick={() => add()}>
-                                                        Ajouter un ingrédient
-                                                    </Button>
-                                                    <Form.ErrorList errors={errors} />
-                                                </Form.Item>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </>
-                            )}
-                        </Form.List>
+                        <FormList
+                            name="recipes"
+                            errorValidator="Veuillez ajouter au moin 1 ingrédient"
+                            fromDynamic={true}
+                            fieldsList={edit[1]}
+                            isCreateOrEdit={true}
+                            messageAdd="Ajouter un ingrédient"
+                        />
 
                         <h2>Etapes</h2>
                         <Step steps={state.recipe.etapes} />
 
-                        <Form.List
-                            name={['recipesStep']}
-                            // rules={[
-                            //     {
-                            //         validator: async (_, recipesStep) => {
-                            //             if (!recipesStep || recipesStep.length === 0) {
-                            //                 return Promise.reject(
-                            //                     new Error('Veuillez ajouter au moin 1 étape.')
-                            //                 )
-                            //             }
-                            //         },
-                            //     },
-                            // ]}
-                        >
-                            {(fields, { add, remove }, { errors }) => (
-                                <>
-                                    <Row gutter={[48, 48]}>
-                                        {fields.map((field, k) => (
-                                            <>
-                                                <Col key={k} xs={24} md={12} lg={8}>
-                                                    <div className={`form-builder-input`}>
-                                                        <FormBuilder
-                                                            formInst={field}
-                                                            fromDynamic={true}
-                                                            fieldsList={edit[2]}
-                                                        />
-                                                        <div className={style.deleteIcon}>
-                                                            <MinusCircleOutlined
-                                                                onClick={() => remove(field.name)}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Col>
-                                            </>
-                                        ))}
-                                        <Col span={24}>
-                                            <Form.Item>
-                                                <Button
-                                                    type="primary"
-                                                    className={style.btnActionAddStep}
-                                                    onClick={() => add()}
-                                                >
-                                                    Ajouter une étape
-                                                </Button>
-                                                <Form.ErrorList errors={errors} />
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>
-                                </>
-                            )}
-                        </Form.List>
+                        <FormList
+                            name="recipesStep"
+                            errorValidator="Veuillez ajouter au moin 1 étape"
+                            fromDynamic={true}
+                            fieldsList={edit[2]}
+                            messageAdd="Ajouter une étape"
+                        />
+
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 Editer cette étape

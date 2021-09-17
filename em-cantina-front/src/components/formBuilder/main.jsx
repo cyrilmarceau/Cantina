@@ -8,7 +8,7 @@ import _ from 'lodash'
 
 import style from './main.module.scss'
 
-function FormBuilder({ fieldsList, formInst = null, isCreateOrAdd, fromDynamic, className = '' }) {
+function FormBuilder({ fieldsList, formInst = null, isCreateOrEdit, fromDynamic, className = '' }) {
     return (
         <div className={className}>
             {_.isArray(fieldsList) &&
@@ -40,7 +40,7 @@ function FormBuilder({ fieldsList, formInst = null, isCreateOrAdd, fromDynamic, 
                             render = (
                                 <FormSelect
                                     fromDynamic={fromDynamic}
-                                    isCreateOrAdd={isCreateOrAdd}
+                                    isCreateOrEdit={isCreateOrEdit}
                                     field={fl}
                                     formInst={formInst}
                                     key={'fl-' + fl.key}

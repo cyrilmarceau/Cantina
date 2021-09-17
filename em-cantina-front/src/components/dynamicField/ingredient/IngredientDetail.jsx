@@ -1,12 +1,35 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
-import { MinusCircleOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
-import { Col, Form, Input, InputNumber, Row, Select } from 'antd'
+import { Col, Form, Input, InputNumber, Row, Select, Divider } from 'antd'
+
+import OptionsContext from '../../../context/OptionsContext'
 
 const { Option } = Select
 
 const IngredientDetail = ({ el, key, idEl, removeIngredient }) => {
+    const { options, setOptions } = useContext(OptionsContext)
+    let index = 0
+
+    const [state, setState] = useState({
+        items: options,
+        name: '',
+    })
+
+    const onNameChange = (event) => {
+        setState({ ...state, name: event.target.value })
+    }
+
+    const addItem = (e) => {
+        setOptions([...options, state.name])
+
+        setState((prevState) => ({
+            items: [...prevState.items, prevState.name || `Ajouter une unité ${index++}`],
+            name: '',
+        }))
+    }
+
     let splitted = el[0].split(/(\d+)/).reduce(
         (acc, curr) => {
             acc[curr.match(/\d+/) ? 0 : 1].push(curr)
@@ -32,9 +55,44 @@ const IngredientDetail = ({ el, key, idEl, removeIngredient }) => {
                     label="Type"
                     name={['defaultRecipe', idEl, 'type']}
                 >
-                    <Select>
-                        <Option value={`${splitted[1]}`}>{splitted[1]}</Option>
+                    <Select
+                        style={{ width: 240 }}
+                        placeholder="Ajouter une unité"
+                        dropdownRender={(menu) => (
+                            <div>
+                                {menu}
+                                <Divider style={{ margin: '4px 0' }} />
+                                <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                                    <Input
+                                        style={{ flex: 'auto' }}
+                                        value={state.name}
+                                        onChange={onNameChange}
+                                    />
+                                    <a
+                                        style={{
+                                            flex: 'none',
+                                            padding: '8px',
+                                            display: 'block',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={addItem}
+                                    >
+                                        <PlusOutlined /> Ajouter une unité
+                                    </a>
+                                </div>
+                            </div>
+                        )}
+                    >
+                        {state.items.map((item) => (
+                            <>
+                                <Option key={item}>{item}</Option>
+                                {/* <Option value={`${splitted[1]}`}>{splitted[1]}</Option> */}
+                            </>
+                        ))}
                     </Select>
+                    {/* <Select>
+                        <Option value={`${splitted[1]}`}>{splitted[1]}</Option>
+                    </Select> */}
                 </Form.Item>
 
                 <Form.Item

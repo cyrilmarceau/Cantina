@@ -14,7 +14,7 @@ import style from './FormSelect.module.scss'
 
 const { Option } = Select
 
-const FormSelect = ({ field, formInst, fromDynamic, isCreateOrAdd }) => {
+const FormSelect = ({ field, formInst, fromDynamic, isCreateOrEdit }) => {
     const { options, setOptions } = useContext(OptionsContext)
     let index = 0
 
@@ -42,7 +42,7 @@ const FormSelect = ({ field, formInst, fromDynamic, isCreateOrAdd }) => {
             rules={field.rules}
             className={style.ctSelectInput}
         >
-            {isCreateOrAdd === true && !_.isNil(options) ? (
+            {isCreateOrEdit === true && !_.isNil(options) ? (
                 <Select
                     style={{ width: 240 }}
                     placeholder="Ajouter une unité"

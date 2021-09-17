@@ -12,6 +12,8 @@ import create from '../../fields/create.json'
 
 import FormBuilder from '../../components/formBuilder/main'
 
+import FormList from '../../components/formBuilder/FormList/FormList'
+
 import API from '../../libs/API'
 
 import style from './Create.module.scss'
@@ -73,105 +75,23 @@ const Create = () => {
                 </Col>
             </Row>
 
-            <Form.List
+            <FormList
                 name="recipes"
-                rules={[
-                    {
-                        validator: async (_, recipes) => {
-                            if (!recipes || recipes.length === 0) {
-                                return Promise.reject(
-                                    new Error('Veuillez ajouter au moin 1 ingrédient')
-                                )
-                            }
-                        },
-                    },
-                ]}
-            >
-                {(fields, { add, remove }, { errors }) => (
-                    <>
-                        <Row gutter={[48, 48]}>
-                            {fields.map((field, k) => (
-                                <Col key={k} xs={24} md={12} lg={8}>
-                                    <div className={`form-builder-input`}>
-                                        <FormBuilder
-                                            formInst={field}
-                                            fromDynamic={true}
-                                            fieldsList={create[1]}
-                                            className={`${style.formBuilder} layout-create-ingredients-input`}
-                                            isCreateOrAdd={true}
-                                        />
-                                        {fields.length > 1 ? (
-                                            <div className={style.deleteIcon}>
-                                                <MinusCircleOutlined
-                                                    onClick={() => remove(field.name)}
-                                                />
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                </Col>
-                            ))}
-                            <Col span={24}>
-                                <div className={style.btnActionAddIngredient}>
-                                    <Form.Item>
-                                        <Button type="primary" onClick={() => add()}>
-                                            Ajouter un ingrédient
-                                        </Button>
-                                        <Form.ErrorList errors={errors} />
-                                    </Form.Item>
-                                </div>
-                            </Col>
-                        </Row>
-                    </>
-                )}
-            </Form.List>
-            <Form.List
-                name={['recipesStep']}
-                rules={[
-                    {
-                        validator: async (_, recipesStep) => {
-                            if (!recipesStep || recipesStep.length === 0) {
-                                return Promise.reject(new Error('Veuillez ajouter au moin 1 étape'))
-                            }
-                        },
-                    },
-                ]}
-            >
-                {(fields, { add, remove }, { errors }) => (
-                    <>
-                        <Row gutter={[48, 48]}>
-                            {fields.map((field, k) => (
-                                <Col key={k} xs={24} md={12} lg={8}>
-                                    <div className={`form-builder-input`}>
-                                        <FormBuilder
-                                            formInst={field}
-                                            fromDynamic={true}
-                                            fieldsList={create[2]}
-                                            className={`layout-create-step-input`}
-                                        />
-                                        {fields.length > 1 ? (
-                                            <div className={style.deleteIcon}>
-                                                <MinusCircleOutlined
-                                                    onClick={() => remove(field.name)}
-                                                />
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                </Col>
-                            ))}
-                            <Col span={24}>
-                                <div className={style.btnActionAddIngredient}>
-                                    <Form.Item>
-                                        <Button type="primary" onClick={() => add()}>
-                                            Ajouter une étapes
-                                        </Button>
-                                        <Form.ErrorList errors={errors} />
-                                    </Form.Item>
-                                </div>
-                            </Col>
-                        </Row>
-                    </>
-                )}
-            </Form.List>
+                errorValidator="Veuillez ajouter au moin 1 ingrédient"
+                fromDynamic={true}
+                fieldsList={create[1]}
+                isCreateOrEdit={true}
+                messageAdd="Ajouter un ingrédient"
+            />
+
+            <FormList
+                name="recipesStep"
+                errorValidator="Veuillez ajouter au moin 1 étape"
+                fromDynamic={true}
+                fieldsList={create[2]}
+                messageAdd="Ajouter une étape"
+            />
+
             <hr className={style.line} />
             <Form.Item>
                 <Button type="primary" htmlType="submit">
