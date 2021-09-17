@@ -31,17 +31,18 @@ const Create = () => {
 
         // Format to array
         values.recipes.forEach((el) => {
+            let createArrayFromDefaultRecipe = []
             if (!_.isNil(el.type)) {
-                ingredients.push(el.quantity.toString() + el.type, el.contain)
+                createArrayFromDefaultRecipe.push(el.quantity.toString() + el.type, el.contain)
+                ingredients.push(createArrayFromDefaultRecipe)
             } else {
-                ingredients.push(el.quantity.toString() + '', el.contain)
+                createArrayFromDefaultRecipe.push(el.quantity.toString() + '', el.contain)
+                ingredients.push(createArrayFromDefaultRecipe)
             }
         })
         values.recipesStep.forEach((el) => {
             steps.push(el.step)
         })
-
-        formatIngredient.push(ingredients)
 
         // Format to JSON
         formatRecipe.titre = values.title
@@ -49,7 +50,7 @@ const Create = () => {
         formatRecipe.niveau = values.difficulty
         formatRecipe.personnes = values.people
         formatRecipe.tempsPreparation = values.preparationTime
-        formatRecipe.ingredients = formatIngredient
+        formatRecipe.ingredients = ingredients
         formatRecipe.etapes = steps
 
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {

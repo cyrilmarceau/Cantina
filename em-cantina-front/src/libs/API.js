@@ -129,7 +129,6 @@ const that = {
             } else {
                 return hours + ' min'
             }
-            //
         },
     },
 

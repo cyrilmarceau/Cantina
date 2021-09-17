@@ -15,28 +15,12 @@ const FormList = ({
     messageAdd,
 }) => {
     return (
-        <Form.List
-            name={name}
-            rules={[
-                {
-                    validator: async (_, recipes, recipesStep) => {
-                        if (
-                            !recipes ||
-                            recipes.length === 0 ||
-                            !recipesStep ||
-                            recipesStep.length === 0
-                        ) {
-                            return Promise.reject(new Error(errorValidator))
-                        }
-                    },
-                },
-            ]}
-        >
+        <Form.List name={name}>
             {(fields, { add, remove }, { errors }) => (
                 <>
                     <Row gutter={[48, 48]}>
                         {fields.map((field, k) => (
-                            <Col key={k} xs={24} md={12} lg={8}>
+                            <Col xs={24} md={12} lg={8}>
                                 <div className={`form-builder-input`}>
                                     <FormBuilder
                                         formInst={field}

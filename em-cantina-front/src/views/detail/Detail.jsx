@@ -126,13 +126,13 @@ const Detail = () => {
                             <h3 className={style.title}>Ingrédients</h3>
                             {state.recipe.ingredients.map((el, k) => {
                                 return (
-                                    <ul>
+                                    <ul key={k}>
                                         <li className={style.listIngredients}>
                                             {el.map((el, k) => {
                                                 if (el === '') {
                                                     return null
                                                 } else {
-                                                    return <span>{el}</span>
+                                                    return <span key={k}>{el}</span>
                                                 }
                                             })}
                                         </li>
@@ -145,7 +145,7 @@ const Detail = () => {
                             <h3 className={style.title}>Etapes</h3>
                             <ol>
                                 {state.recipe.etapes.map((el, k) => (
-                                    <li>{el}</li>
+                                    <li key={k}>{el}</li>
                                 ))}
                             </ol>
                         </div>

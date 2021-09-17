@@ -25,6 +25,7 @@ const Home = () => {
             numberPeople: {},
             time: '',
         },
+        canFilterPeople: false,
     })
 
     const { options, setOptions } = useContext(OptionsContext)
@@ -74,6 +75,21 @@ const Home = () => {
         if (!_.isEqual(state, newS)) {
             setState(newS)
         }
+
+        // if (allValues.numberPeople.min > allValues.numberPeople.max) {
+        //     form.getFieldInstance('validator')
+        //     form.validateFields().then((values) => {
+        //         console.log('Min ne peux pas être inferieur à max', values)
+        //     })
+        // } else if (_.isNaN(allValues.numberPeople.min)) {
+        //     form.validateFields().then((values) => {
+        //         console.log('Veuillez remplir le champs min', values)
+        //     })
+        // } else if (_.isNaN(allValues.numberPeople.max)) {
+        //     form.validateFields().then((values) => {
+        //         console.log('Veuillez remplir le champs max', values)
+        //     })
+        // }
     }
 
     const [form] = Form.useForm()

@@ -17,8 +17,8 @@ const Step = ({ steps }) => {
             <Row gutter={[48, 48]}>
                 {stepList.map((el, k) => {
                     return (
-                        <Col xs={24} md={12} lg={8}>
-                            <div key={el} className={`form-builder-input`}>
+                        <Col key={el} xs={24} md={12} lg={8}>
+                            <div className={`form-builder-input`}>
                                 <Form.Item
                                     initialValue={el}
                                     label="Etape"
