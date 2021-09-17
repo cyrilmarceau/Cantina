@@ -35,20 +35,6 @@ const FormSelect = ({ field, formInst, fromDynamic, isCreateOrAdd }) => {
             name: '',
         }))
     }
-
-    // Get options from localStorage
-    // If user refresh the page, he don't lost his unity
-    // const getOptionsLS = () => {
-    //     let opts = API.utils.getOptionsLs('options')
-    //     console.log(opts)
-    //     setState((prevState) => ({
-    //         items: [prevState.items, opts],
-    //     }))
-    // }
-
-    // useEffect(() => {
-    //     getOptionsLS()
-    // }, [])
     return (
         <Form.Item
             label={field.displayLabel && field.label}

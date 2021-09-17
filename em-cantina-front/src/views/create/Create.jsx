@@ -53,7 +53,7 @@ const Create = () => {
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
             formatRecipe.photo = values.pictureURL
         }
-
+        console.log('create', formatRecipe)
         API.createRecipe(formatRecipe).then(() => {
             message.success("L'ajout a bien été effectué", 1, history.push('/'))
         })
@@ -91,27 +91,24 @@ const Create = () => {
                     <>
                         <Row gutter={[48, 48]}>
                             {fields.map((field, k) => (
-                                <>
-                                    <Col xs={24} md={12} lg={8}>
-                                        <div className={`form-builder-input`}>
-                                            <FormBuilder
-                                                key={k}
-                                                formInst={field}
-                                                fromDynamic={true}
-                                                fieldsList={create[1]}
-                                                className={`${style.formBuilder} layout-create-ingredients-input`}
-                                                isCreateOrAdd={true}
-                                            />
-                                            {fields.length > 1 ? (
-                                                <div className={style.deleteIcon}>
-                                                    <MinusCircleOutlined
-                                                        onClick={() => remove(field.name)}
-                                                    />
-                                                </div>
-                                            ) : null}
-                                        </div>
-                                    </Col>
-                                </>
+                                <Col key={k} xs={24} md={12} lg={8}>
+                                    <div className={`form-builder-input`}>
+                                        <FormBuilder
+                                            formInst={field}
+                                            fromDynamic={true}
+                                            fieldsList={create[1]}
+                                            className={`${style.formBuilder} layout-create-ingredients-input`}
+                                            isCreateOrAdd={true}
+                                        />
+                                        {fields.length > 1 ? (
+                                            <div className={style.deleteIcon}>
+                                                <MinusCircleOutlined
+                                                    onClick={() => remove(field.name)}
+                                                />
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </Col>
                             ))}
                             <Col span={24}>
                                 <div className={style.btnActionAddIngredient}>
@@ -143,26 +140,23 @@ const Create = () => {
                     <>
                         <Row gutter={[48, 48]}>
                             {fields.map((field, k) => (
-                                <>
-                                    <Col xs={24} md={12} lg={8}>
-                                        <div className={`form-builder-input`}>
-                                            <FormBuilder
-                                                key={k}
-                                                formInst={field}
-                                                fromDynamic={true}
-                                                fieldsList={create[2]}
-                                                className={`layout-create-step-input`}
-                                            />
-                                            {fields.length > 1 ? (
-                                                <div className={style.deleteIcon}>
-                                                    <MinusCircleOutlined
-                                                        onClick={() => remove(field.name)}
-                                                    />
-                                                </div>
-                                            ) : null}
-                                        </div>
-                                    </Col>
-                                </>
+                                <Col key={k} xs={24} md={12} lg={8}>
+                                    <div className={`form-builder-input`}>
+                                        <FormBuilder
+                                            formInst={field}
+                                            fromDynamic={true}
+                                            fieldsList={create[2]}
+                                            className={`layout-create-step-input`}
+                                        />
+                                        {fields.length > 1 ? (
+                                            <div className={style.deleteIcon}>
+                                                <MinusCircleOutlined
+                                                    onClick={() => remove(field.name)}
+                                                />
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </Col>
                             ))}
                             <Col span={24}>
                                 <div className={style.btnActionAddIngredient}>

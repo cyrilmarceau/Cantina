@@ -55,6 +55,60 @@ const Edit = () => {
         }
     }
 
+    const updateRecipe = (values) => {
+        let formatRecipe = {}
+        let ingredients = []
+        let steps = []
+
+        values.defaultRecipe.forEach((el, i) => {
+            let createArrayFromDefaultRecipe = []
+            if (!_.isNil(el.type) || !el.type === '') {
+                createArrayFromDefaultRecipe.push(el.quantity.toString() + el.type, el.contain)
+                ingredients.push(createArrayFromDefaultRecipe)
+            } else {
+                createArrayFromDefaultRecipe.push(el.quantity.toString() + '', el.contain)
+                ingredients.push(createArrayFromDefaultRecipe)
+            }
+        })
+
+        if (!_.isNil(values.recipes)) {
+            values.recipes.forEach((el) => {
+                if (!_.isNil(el.type) || !el.type === '') {
+                    ingredients.push(el.quantity.toString() + el.type, el.contain)
+                } else {
+                    ingredients.push(el.quantity.toString() + '', el.contain)
+                }
+            })
+        }
+
+        if (!_.isNil(values.recipesStep)) {
+            values.recipesStep.forEach((el) => {
+                steps.push(el.step)
+            })
+        }
+
+        values.defaultStep.forEach((el) => {
+            steps.push(el.step)
+        })
+
+        // // Format to JSON
+        formatRecipe.titre = values.title
+        formatRecipe.description = values.description
+        formatRecipe.niveau = values.difficulty
+        formatRecipe.personnes = values.people
+        formatRecipe.tempsPreparation = values.preparationTime
+        formatRecipe.ingredients = ingredients
+        formatRecipe.etapes = steps
+        console.log(formatRecipe.ingredients)
+        if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
+            formatRecipe.photo = values.pictureURL
+        }
+
+        API.updateRecipe(id, formatRecipe).then(() => {
+            message.success('La modification à bien été effectué', 1, history.push('/'))
+        })
+    }
+
     return (
         <Row>
             <Col span={24}>
@@ -71,6 +125,7 @@ const Edit = () => {
                         name="dynamic_form_item"
                         form={form}
                         ref={formRef}
+                        onFinish={updateRecipe}
                     >
                         <FormBuilder fieldsList={edit[0]} className={`layout-edit-input`} />
 
@@ -82,23 +137,20 @@ const Edit = () => {
                                 <>
                                     <Row gutter={[48, 48]}>
                                         {fields.map((field, k) => (
-                                            <>
-                                                <Col xs={24} md={12} lg={8}>
-                                                    <div className={`form-builder-input`}>
-                                                        <FormBuilder
-                                                            key={k}
-                                                            formInst={field}
-                                                            fromDynamic={true}
-                                                            fieldsList={edit[1]}
+                                            <Col key={k} xs={24} md={12} lg={8}>
+                                                <div className={`form-builder-input`}>
+                                                    <FormBuilder
+                                                        formInst={field}
+                                                        fromDynamic={true}
+                                                        fieldsList={edit[1]}
+                                                    />
+                                                    <div className={style.deleteIcon}>
+                                                        <MinusCircleOutlined
+                                                            onClick={() => remove(field.name)}
                                                         />
-                                                        <div className={style.deleteIcon}>
-                                                            <MinusCircleOutlined
-                                                                onClick={() => remove(field.name)}
-                                                            />
-                                                        </div>
                                                     </div>
-                                                </Col>
-                                            </>
+                                                </div>
+                                            </Col>
                                         ))}
 
                                         <Col span={24}>
@@ -121,27 +173,26 @@ const Edit = () => {
 
                         <Form.List
                             name={['recipesStep']}
-                            rules={[
-                                {
-                                    validator: async (_, recipesStep) => {
-                                        if (!recipesStep || recipesStep.length === 0) {
-                                            return Promise.reject(
-                                                new Error('Veuillez ajouter au moin 1 étape.')
-                                            )
-                                        }
-                                    },
-                                },
-                            ]}
+                            // rules={[
+                            //     {
+                            //         validator: async (_, recipesStep) => {
+                            //             if (!recipesStep || recipesStep.length === 0) {
+                            //                 return Promise.reject(
+                            //                     new Error('Veuillez ajouter au moin 1 étape.')
+                            //                 )
+                            //             }
+                            //         },
+                            //     },
+                            // ]}
                         >
                             {(fields, { add, remove }, { errors }) => (
                                 <>
                                     <Row gutter={[48, 48]}>
                                         {fields.map((field, k) => (
                                             <>
-                                                <Col xs={24} md={12} lg={8}>
+                                                <Col key={k} xs={24} md={12} lg={8}>
                                                     <div className={`form-builder-input`}>
                                                         <FormBuilder
-                                                            key={k}
                                                             formInst={field}
                                                             fromDynamic={true}
                                                             fieldsList={edit[2]}
@@ -171,6 +222,11 @@ const Edit = () => {
                                 </>
                             )}
                         </Form.List>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                                Editer cette étape
+                            </Button>
+                        </Form.Item>
                     </Form>
                 ) : (
                     <Spin className="loading-icon" />

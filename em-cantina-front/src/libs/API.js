@@ -6,8 +6,6 @@ import moment from 'moment'
 
 import _ from 'lodash'
 
-var momentDurationFormatSetup = require('moment-duration-format')
-const fs = require('fs')
 const PUBLIC_ROUTE_PRE = '/api'
 
 const that = {
@@ -77,7 +75,7 @@ const that = {
         let api = that.getAxiosInstence()
 
         return new Promise((resolve, reject) => {
-            api.patch(url, values)
+            api.put(url, values)
                 .then((apiResp) => {
                     let res = apiResp.data
 
@@ -118,6 +116,10 @@ const that = {
 
     createRecipe(values = {}) {
         return that.createRoute(`${PUBLIC_ROUTE_PRE}/recipes`, values)
+    },
+
+    updateRecipe(id, values = {}) {
+        return that.updateRoute(`${PUBLIC_ROUTE_PRE}/recipe/${id}`, values)
     },
 
     format: {

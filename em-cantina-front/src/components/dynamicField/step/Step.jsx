@@ -19,8 +19,12 @@ const Step = ({ steps }) => {
                     return (
                         <Col xs={24} md={12} lg={8}>
                             <div key={el} className={`form-builder-input`}>
-                                <Form.Item label="Etape" name={[k, 'step']}>
-                                    <TextArea defaultValue={el} placeholder="Etapes" />
+                                <Form.Item
+                                    initialValue={el}
+                                    label="Etape"
+                                    name={['defaultStep', k, 'step']}
+                                >
+                                    <TextArea placeholder="Etapes" />
                                 </Form.Item>
                                 <div className={style.deleteIcon}>
                                     <MinusCircleOutlined onClick={() => removeStep(el)} />
