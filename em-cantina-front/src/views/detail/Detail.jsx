@@ -85,7 +85,7 @@ const Detail = () => {
     }
 
     return (
-        <Row>
+        <Row gutter={[16, 16]}>
             {!_.isNil(state.recipe) ? (
                 <>
                     <Col span={24}>
@@ -101,7 +101,7 @@ const Detail = () => {
                             <div className={style.people}>
                                 <span className={style.numberPeople}>{state.recipe.personnes}</span>
                                 <span>
-                                    {state.recipe.personnes === 1 ? 'personne' : 'personnes'}{' '}
+                                    {state.recipe.personnes === 1 ? 'personne' : 'personnes'}
                                 </span>
                             </div>
                         </div>
@@ -111,7 +111,7 @@ const Detail = () => {
                         </div>
                     </Col>
 
-                    <Col span={12}>
+                    <Col xs={24} lg={12}>
                         <img
                             className={style.recipeImg}
                             src={
@@ -121,7 +121,7 @@ const Detail = () => {
                             alt={state.recipe.description}
                         />
                     </Col>
-                    <Col span={12}>
+                    <Col xs={24} lg={12}>
                         <div className={style.ingredients}>
                             <h3 className={style.title}>Ingrédients</h3>
                             {state.recipe.ingredients.map((el, k) => {

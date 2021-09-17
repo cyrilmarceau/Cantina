@@ -17,9 +17,9 @@ const Step = ({ steps }) => {
             <Row gutter={[48, 48]}>
                 {stepList.map((el, k) => {
                     return (
-                        <Col span={12}>
-                            <div key={el} className={`${style.layoutCreateStepsInput}`}>
-                                <Form.Item className="input-step" label="Etape" name={[k, 'step']}>
+                        <Col xs={24} md={12} lg={8}>
+                            <div key={el} className={`form-builder-input`}>
+                                <Form.Item label="Etape" name={[k, 'step']}>
                                     <TextArea defaultValue={el} placeholder="Etapes" />
                                 </Form.Item>
                                 <div className={style.deleteIcon}>

@@ -27,8 +27,8 @@ const Ingredient = ({ ingredients }) => {
                           )
                           splitted[1].shift()
                           return (
-                              <Col span={8} key={el[1]}>
-                                  <div className={style.layoutEditIngredientsInput}>
+                              <Col xs={24} md={12} lg={8} key={el[1]}>
+                                  <div className={`form-builder-input`}>
                                       <Form.Item
                                           label="Quantité"
                                           initialValue={splitted[0]}

@@ -1,0 +1,13 @@
+.form-builder-input {
+    background-color: white;
+    box-shadow: 0px 0px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+
+    .deleteIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: red;
+    }
+}

@@ -7,7 +7,7 @@ import moment from 'moment'
 import _ from 'lodash'
 
 var momentDurationFormatSetup = require('moment-duration-format')
-
+const fs = require('fs')
 const PUBLIC_ROUTE_PRE = '/api'
 
 const that = {
@@ -129,6 +129,24 @@ const that = {
             }
             //
         },
+    },
+
+    utils: {
+        // createOption(optionList) {
+        //     let opt = {}
+        //     opt['options'] = optionList
+        //     console.log(opt)
+        //     const resultJSON = JSON.stringify(opt, null)
+        //     fs.appendFile('append.txt', 'yoyo')
+        //     // fs.appendFile('./', 'options.json', resultJSON, (err) => {
+        //     //     if (err) throw err
+        //     //     console.log('Fichier créé !')
+        //     // })
+        //     // let options = JSON.stringify(optionList)
+        //     // fs.writeFile('option.json', options, (err, result) => {
+        //     //     if (err) console.log('error', err)
+        //     // })
+        // },
     },
 }
 

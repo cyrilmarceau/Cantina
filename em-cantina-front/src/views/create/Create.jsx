@@ -10,7 +10,7 @@ import _ from 'lodash'
 
 import create from '../../fields/create.json'
 
-import FormBuilder from '../../formBuilder/main'
+import FormBuilder from '../../components/formBuilder/main'
 
 import API from '../../libs/API'
 
@@ -69,10 +69,7 @@ const Create = () => {
         >
             <Row>
                 <Col span={24}>
-                    <FormBuilder
-                        className={`${style.formBuilder} layout-create-input`}
-                        fieldsList={create[0]}
-                    />
+                    <FormBuilder className="layout-create-input" fieldsList={create[0]} />
                 </Col>
             </Row>
 
@@ -92,31 +89,38 @@ const Create = () => {
             >
                 {(fields, { add, remove }, { errors }) => (
                     <>
-                        <Row>
-                            <Col span={24}>
-                                {fields.map((field, k) => (
-                                    <>
-                                        <FormBuilder
-                                            key={k}
-                                            formInst={field}
-                                            fromDynamic={true}
-                                            fieldsList={create[1]}
-                                            className={`${style.formBuilder} layout-create-ingredients-input`}
-                                        />
-                                        {fields.length > 1 ? (
-                                            <MinusCircleOutlined
-                                                className="dynamic-delete-button"
-                                                onClick={() => remove(field.name)}
+                        <Row gutter={[48, 48]}>
+                            {fields.map((field, k) => (
+                                <>
+                                    <Col xs={24} md={12} lg={8}>
+                                        <div className={`form-builder-input`}>
+                                            <FormBuilder
+                                                key={k}
+                                                formInst={field}
+                                                fromDynamic={true}
+                                                fieldsList={create[1]}
+                                                className={`${style.formBuilder} layout-create-ingredients-input`}
                                             />
-                                        ) : null}
-                                    </>
-                                ))}
-                                <Form.Item>
-                                    <Button type="dashed" onClick={() => add()}>
-                                        Ajouter un ingrédient
-                                    </Button>
-                                    <Form.ErrorList errors={errors} />
-                                </Form.Item>
+                                            {fields.length > 1 ? (
+                                                <div className={style.deleteIcon}>
+                                                    <MinusCircleOutlined
+                                                        onClick={() => remove(field.name)}
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </div>
+                                    </Col>
+                                </>
+                            ))}
+                            <Col span={24}>
+                                <div className={style.btnActionAddIngredient}>
+                                    <Form.Item>
+                                        <Button type="primary" onClick={() => add()}>
+                                            Ajouter un ingrédient
+                                        </Button>
+                                        <Form.ErrorList errors={errors} />
+                                    </Form.Item>
+                                </div>
                             </Col>
                         </Row>
                     </>
@@ -136,31 +140,38 @@ const Create = () => {
             >
                 {(fields, { add, remove }, { errors }) => (
                     <>
-                        <Row>
-                            <Col span={24}>
-                                {fields.map((field, k) => (
-                                    <>
-                                        <FormBuilder
-                                            key={k}
-                                            formInst={field}
-                                            fromDynamic={true}
-                                            fieldsList={create[2]}
-                                            className={`${style.formBuilder} layout-create-step-input`}
-                                        />
-                                        {fields.length > 1 ? (
-                                            <MinusCircleOutlined
-                                                className="dynamic-delete-button"
-                                                onClick={() => remove(field.name)}
+                        <Row gutter={[48, 48]}>
+                            {fields.map((field, k) => (
+                                <>
+                                    <Col xs={24} md={12} lg={8}>
+                                        <div className={`form-builder-input`}>
+                                            <FormBuilder
+                                                key={k}
+                                                formInst={field}
+                                                fromDynamic={true}
+                                                fieldsList={create[2]}
+                                                className={`layout-create-step-input`}
                                             />
-                                        ) : null}
-                                    </>
-                                ))}
-                                <Form.Item>
-                                    <Button type="dashed" onClick={() => add()}>
-                                        Ajouter une étape
-                                    </Button>
-                                    <Form.ErrorList errors={errors} />
-                                </Form.Item>
+                                            {fields.length > 1 ? (
+                                                <div className={style.deleteIcon}>
+                                                    <MinusCircleOutlined
+                                                        onClick={() => remove(field.name)}
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </div>
+                                    </Col>
+                                </>
+                            ))}
+                            <Col span={24}>
+                                <div className={style.btnActionAddIngredient}>
+                                    <Form.Item>
+                                        <Button type="primary" onClick={() => add()}>
+                                            Ajouter une étapes
+                                        </Button>
+                                        <Form.ErrorList errors={errors} />
+                                    </Form.Item>
+                                </div>
                             </Col>
                         </Row>
                     </>

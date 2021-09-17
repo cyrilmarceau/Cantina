@@ -10,7 +10,7 @@ import _ from 'lodash'
 
 import edit from '../../fields/edit.json'
 
-import FormBuilder from '../../formBuilder/main'
+import FormBuilder from '../../components/formBuilder/main'
 
 import Ingredient from '../../components/dynamicField/ingredient/Ingredient'
 import Step from '../../components/dynamicField/step/Step'
@@ -72,10 +72,7 @@ const Edit = () => {
                         form={form}
                         ref={formRef}
                     >
-                        <FormBuilder
-                            fieldsList={edit[0]}
-                            className={`${style.formBuilder} layout-edit-input`}
-                        />
+                        <FormBuilder fieldsList={edit[0]} className={`layout-edit-input`} />
 
                         <h2>Ingredients</h2>
                         <Ingredient ingredients={state.recipe.ingredients} />
@@ -86,14 +83,13 @@ const Edit = () => {
                                     <Row gutter={[48, 48]}>
                                         {fields.map((field, k) => (
                                             <>
-                                                <Col span={8}>
-                                                    <div className={style.layoutEditInput}>
+                                                <Col xs={24} md={12} lg={8}>
+                                                    <div className={`form-builder-input`}>
                                                         <FormBuilder
                                                             key={k}
                                                             formInst={field}
                                                             fromDynamic={true}
                                                             fieldsList={edit[1]}
-                                                            className={`layout-edit-ingredients-input`}
                                                         />
                                                         <div className={style.deleteIcon}>
                                                             <MinusCircleOutlined
@@ -139,23 +135,27 @@ const Edit = () => {
                         >
                             {(fields, { add, remove }, { errors }) => (
                                 <>
-                                    <Row>
+                                    <Row gutter={[48, 48]}>
+                                        {fields.map((field, k) => (
+                                            <>
+                                                <Col xs={24} md={12} lg={8}>
+                                                    <div className={`form-builder-input`}>
+                                                        <FormBuilder
+                                                            key={k}
+                                                            formInst={field}
+                                                            fromDynamic={true}
+                                                            fieldsList={edit[2]}
+                                                        />
+                                                        <div className={style.deleteIcon}>
+                                                            <MinusCircleOutlined
+                                                                onClick={() => remove(field.name)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            </>
+                                        ))}
                                         <Col span={24}>
-                                            {fields.map((field, k) => (
-                                                <>
-                                                    <FormBuilder
-                                                        key={k}
-                                                        formInst={field}
-                                                        fromDynamic={true}
-                                                        fieldsList={edit[2]}
-                                                        className={`${style.formBuilder} layout-create-step-input`}
-                                                    />
-                                                    <MinusCircleOutlined
-                                                        className="dynamic-delete-button"
-                                                        onClick={() => remove(field.name)}
-                                                    />
-                                                </>
-                                            ))}
                                             <Form.Item>
                                                 <Button
                                                     type="primary"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 
 import { Row, Col, Spin, Form } from 'antd'
 
@@ -10,7 +10,7 @@ import Recipe from '../../components/recipe/Recipe'
 
 import filter from '../../fields/filter.json'
 
-import FormBuilder from '../../formBuilder/main'
+import FormBuilder from '../../components/formBuilder/main'
 
 import style from './Home.module.scss'
 
@@ -28,6 +28,28 @@ const Home = () => {
     useEffect(() => {
         fetchRecipes()
     }, [])
+
+    useEffect(() => {
+        setFileOption()
+    }, [state.recipes])
+
+    const setFileOption = () => {
+        if (!_.isNil(state.recipes)) {
+            let type = []
+            state.recipes.forEach((el) => {
+                el.ingredients.forEach((el) => {
+                    // console.log(el)
+                    const regex = el[0].match(/^(?<nombre>\d+|½)(?<string>\D+)?$/)?.groups
+                    if (!_.isNil(regex) && !_.isNil(regex.string)) {
+                        // console.log(regex)
+                        type.push(regex.string)
+                    }
+                })
+            })
+
+            // API.utils.createOption(_.uniq(type))
+        }
+    }
 
     const fetchRecipes = async () => {
         let params = {}
@@ -92,7 +114,7 @@ const Home = () => {
                         )
                         .map((el, k) => {
                             return (
-                                <Col key={k} span={6}>
+                                <Col key={k} xs={24} md={12} lg={8}>
                                     <Recipe
                                         _id={el.id}
                                         _imgSrc={el.photo}
