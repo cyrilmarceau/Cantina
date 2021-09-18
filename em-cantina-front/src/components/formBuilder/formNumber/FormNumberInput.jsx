@@ -3,7 +3,6 @@ import { Form, InputNumber } from 'antd'
 import style from './FormNumberInput.module.scss'
 
 const FormNumberInput = ({ field, formInst, fromDynamic }) => {
-    console.log(formInst)
     return (
         <Form.Item
             label={field.displayLabel && field.label}

@@ -23,12 +23,13 @@ const Ingredient = ({ ingredients }) => {
                 {!_.isEmpty(ingredientList)
                     ? ingredientList.map((el, key) => {
                           return (
-                              <IngredientDetail
-                                  removeIngredient={removeIngredient}
-                                  el={el}
-                                  key={el[1]}
-                                  idEl={key}
-                              />
+                              <Col xs={24} md={12} lg={8} key={el[1]}>
+                                  <IngredientDetail
+                                      removeIngredient={removeIngredient}
+                                      el={el}
+                                      idEl={key}
+                                  />
+                              </Col>
                           )
                       })
                     : null}

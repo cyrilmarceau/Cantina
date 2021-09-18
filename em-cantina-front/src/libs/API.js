@@ -6,6 +6,8 @@ import moment from 'moment'
 
 import _ from 'lodash'
 
+var momentDurationFormatSetup = require('moment-duration-format')
+
 const PUBLIC_ROUTE_PRE = '/api'
 
 const that = {

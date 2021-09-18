@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 
-import { Row, Col, Form, Button, Spin, message, Space } from 'antd'
+import { Row, Col, Form, Button, Spin, message, Space, Input } from 'antd'
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
@@ -19,6 +19,8 @@ import FormList from '../../components/formBuilder/FormList/FormList'
 import API from '../../libs/API'
 
 import style from './Edit.module.scss'
+
+const { TextArea } = Input
 
 const Edit = () => {
     const [state, setState] = useState({
@@ -107,7 +109,6 @@ const Edit = () => {
         formatRecipe.tempsPreparation = values.preparationTime
         formatRecipe.ingredients = ingredients
         formatRecipe.etapes = steps
-        console.log(formatRecipe.ingredients)
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
             formatRecipe.photo = values.pictureURL
         }
@@ -129,6 +130,7 @@ const Edit = () => {
                             difficulty: state.recipe.niveau,
                             preparationTime: state.recipe.tempsPreparation,
                             pictureURL: state.recipe.photo,
+                            defaultStep: [''],
                         }}
                         name="dynamic_form_item"
                         form={form}
@@ -166,23 +168,58 @@ const Edit = () => {
                                                 </div>
                                             </Col>
                                         ))}
-                                        <Form.Item>
-                                            <Button
-                                                type="dashed"
-                                                onClick={() => add()}
-                                                block
-                                                icon={<PlusOutlined />}
-                                            >
-                                                Ajouter un ingrédient
-                                            </Button>
-                                        </Form.Item>
                                     </Row>
+                                    <Form.Item>
+                                        <Button
+                                            type="dashed"
+                                            onClick={() => add()}
+                                            block
+                                            icon={<PlusOutlined />}
+                                        >
+                                            Ajouter un ingrédient
+                                        </Button>
+                                    </Form.Item>
                                 </>
                             )}
                         </Form.List>
 
                         <h2>Etapes</h2>
-                        <Step steps={state.recipe.etapes} />
+
+                        <Form.List name="defaultStep">
+                            {(fields, { add, remove }) => (
+                                <>
+                                    <Row gutter={[48, 48]}>
+                                        {fields.map(({ key, name, fieldKey, ...restField }) => (
+                                            <>
+                                                {state.recipe.etapes.map((el, k) => {
+                                                    return (
+                                                        <Col key={el} xs={24} md={12} lg={8}>
+                                                            <div
+                                                                key={el}
+                                                                className={`form-builder-input`}
+                                                            >
+                                                                <Form.Item
+                                                                    initialValue={el}
+                                                                    label="Etape"
+                                                                    name={[k, 'step']}
+                                                                >
+                                                                    <TextArea placeholder="Etapes" />
+                                                                </Form.Item>
+                                                                <div className={style.deleteIcon}>
+                                                                    <MinusCircleOutlined
+                                                                        onClick={() => remove(name)}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </Col>
+                                                    )
+                                                })}
+                                            </>
+                                        ))}
+                                    </Row>
+                                </>
+                            )}
+                        </Form.List>
                         <Form.List name="recipesStep">
                             {(fields, { add, remove }) => (
                                 <>
@@ -209,17 +246,17 @@ const Edit = () => {
                                                 </div>
                                             </Col>
                                         ))}
-                                        <Form.Item>
-                                            <Button
-                                                type="dashed"
-                                                onClick={() => add()}
-                                                block
-                                                icon={<PlusOutlined />}
-                                            >
-                                                Ajouter une étape
-                                            </Button>
-                                        </Form.Item>
                                     </Row>
+                                    <Form.Item>
+                                        <Button
+                                            type="dashed"
+                                            onClick={() => add()}
+                                            block
+                                            icon={<PlusOutlined />}
+                                        >
+                                            Ajouter une étape
+                                        </Button>
+                                    </Form.Item>
                                 </>
                             )}
                         </Form.List>

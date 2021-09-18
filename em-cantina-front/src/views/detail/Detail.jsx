@@ -31,16 +31,17 @@ const Detail = () => {
             newS.recipe = recipesFetch
             setState(newS)
         } catch (e) {
-            if (e.response.data.errorMessage === 'Aucune recette trouvée') {
-                message
-                    .error(
-                        "La page recherché n'existe pas vous allez être rediriger dans 2 secondes",
-                        2
-                    )
-                    .then(() => {
-                        history.push('/')
-                    })
-            }
+            console.log(e)
+            // if (e.response.data.errorMessage === 'Aucune recette trouvée') {
+            //     message
+            //         .error(
+            //             "La page recherché n'existe pas vous allez être rediriger dans 2 secondes",
+            //             2
+            //         )
+            //         .then(() => {
+            //             history.push('/')
+            //         })
+            // }
         }
     }
 

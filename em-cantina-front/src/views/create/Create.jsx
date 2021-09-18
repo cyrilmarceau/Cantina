@@ -55,10 +55,13 @@ const Create = () => {
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
             formatRecipe.photo = values.pictureURL
         }
-        console.log('create', formatRecipe)
-        API.createRecipe(formatRecipe).then(() => {
-            message.success("L'ajout a bien été effectué", 1, history.push('/'))
-        })
+        API.createRecipe(formatRecipe)
+            .then(() => {
+                message.success("L'ajout a bien été effectué", 1, history.push('/'))
+            })
+            .catch((e) => {
+                message.error("Une errreur s'est produite", 1, history.push('/'))
+            })
     }
 
     return (
