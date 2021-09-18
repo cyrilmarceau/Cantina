@@ -38,7 +38,7 @@ const FormSelect = ({ field, formInst, fromDynamic, isCreateOrEdit }) => {
     return (
         <Form.Item
             label={field.displayLabel && field.label}
-            name={fromDynamic === true ? [formInst.key, 'type'] : field.key}
+            name={fromDynamic === true ? [formInst, 'type'] : field.key}
             rules={field.rules}
             className={style.ctSelectInput}
         >

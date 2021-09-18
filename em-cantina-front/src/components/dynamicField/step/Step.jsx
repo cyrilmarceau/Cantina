@@ -18,7 +18,7 @@ const Step = ({ steps }) => {
                 {stepList.map((el, k) => {
                     return (
                         <Col key={el} xs={24} md={12} lg={8}>
-                            <div className={`form-builder-input`}>
+                            <div key={el} className={`form-builder-input`}>
                                 <Form.Item
                                     initialValue={el}
                                     label="Etape"

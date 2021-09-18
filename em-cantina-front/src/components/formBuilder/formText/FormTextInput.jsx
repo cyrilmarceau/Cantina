@@ -3,10 +3,11 @@ import { Form, Input } from 'antd'
 import style from './FormTextInput.module.scss'
 
 const FormTextInput = ({ field, formInst, fromDynamic }) => {
+    console.log(formInst)
     return (
         <Form.Item
             label={field.displayLabel && field.label}
-            name={fromDynamic === true ? [formInst.key, 'contain'] : field.key}
+            name={fromDynamic === true ? [formInst, 'contain'] : field.key}
             rules={field.rules}
             className={style.inputContainer}
             // eslint-disable-next-line react/jsx-no-duplicate-props

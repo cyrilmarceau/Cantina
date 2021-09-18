@@ -20,7 +20,7 @@ const FormList = ({
                 <>
                     <Row gutter={[48, 48]}>
                         {fields.map((field, k) => (
-                            <Col xs={24} md={12} lg={8}>
+                            <Col key={k} xs={24} md={12} lg={8}>
                                 <div className={`form-builder-input`}>
                                     <FormBuilder
                                         formInst={field}

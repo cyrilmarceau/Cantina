@@ -8,7 +8,7 @@ const FormNumberInput = ({ field, formInst, fromDynamic }) => {
     return (
         <Form.Item
             label={field.displayLabel && field.label}
-            name={fromDynamic === true ? [formInst.key, 'step'] : field.key}
+            name={fromDynamic === true ? [formInst, 'step'] : field.key}
             rules={field.rules}
             className={style.inputNumber}
         >

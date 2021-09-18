@@ -8,10 +8,10 @@ import OptionsContext from '../../../context/OptionsContext'
 
 const { Option } = Select
 
-const IngredientDetail = ({ el, key, idEl, removeIngredient }) => {
+const IngredientDetail = ({ el, idEl, removeIngredient }) => {
     const { options, setOptions } = useContext(OptionsContext)
     let index = 0
-
+    console.log(el)
     const [state, setState] = useState({
         items: options,
         name: '',
@@ -86,18 +86,14 @@ const IngredientDetail = ({ el, key, idEl, removeIngredient }) => {
                         {state.items.map((item) => (
                             <>
                                 <Option key={item}>{item}</Option>
-                                {/* <Option value={`${splitted[1]}`}>{splitted[1]}</Option> */}
                             </>
                         ))}
                     </Select>
-                    {/* <Select>
-                        <Option value={`${splitted[1]}`}>{splitted[1]}</Option>
-                    </Select> */}
                 </Form.Item>
 
                 <Form.Item
-                    initialValue={`${el[1]}`}
                     label="Contenu"
+                    initialValue={el[1]}
                     name={['defaultRecipe', idEl, 'contain']}
                 >
                     <Input placeholder="Content" />

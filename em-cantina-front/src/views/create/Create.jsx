@@ -1,18 +1,18 @@
 import React from 'react'
 
-import { Form, Button, message, Row, Col } from 'antd'
+import { Form, Button, message, Row, Col, Space, Input } from 'antd'
 
-import { MinusCircleOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 import { useHistory } from 'react-router-dom'
 
 import _ from 'lodash'
 
+import { v4 as uuidv4 } from 'uuid'
+
 import create from '../../fields/create.json'
 
 import FormBuilder from '../../components/formBuilder/main'
-
-import FormList from '../../components/formBuilder/FormList/FormList'
 
 import API from '../../libs/API'
 
@@ -25,19 +25,18 @@ const Create = () => {
 
     const onFinish = (values) => {
         let formatRecipe = {}
-        let formatIngredient = []
         let ingredients = []
         let steps = []
 
         // Format to array
         values.recipes.forEach((el) => {
-            let createArrayFromDefaultRecipe = []
+            let arrayForIngredient = []
             if (!_.isNil(el.type)) {
-                createArrayFromDefaultRecipe.push(el.quantity.toString() + el.type, el.contain)
-                ingredients.push(createArrayFromDefaultRecipe)
+                arrayForIngredient.push(el.quantity.toString() + el.type, el.contain)
+                ingredients.push(arrayForIngredient)
             } else {
-                createArrayFromDefaultRecipe.push(el.quantity.toString() + '', el.contain)
-                ingredients.push(createArrayFromDefaultRecipe)
+                arrayForIngredient.push(el.quantity.toString() + '', el.contain)
+                ingredients.push(arrayForIngredient)
             }
         })
         values.recipesStep.forEach((el) => {
@@ -76,27 +75,90 @@ const Create = () => {
                 </Col>
             </Row>
 
-            <FormList
-                name="recipes"
-                errorValidator="Veuillez ajouter au moin 1 ingrédient"
-                fromDynamic={true}
-                fieldsList={create[1]}
-                isCreateOrEdit={true}
-                messageAdd="Ajouter un ingrédient"
-            />
+            <Form.List name="recipes">
+                {(fields, { add, remove }) => (
+                    <>
+                        <Row gutter={[48, 48]}>
+                            {fields.map(({ key, name, fieldKey, ...restField }) => (
+                                <Col key={key} xs={24} md={12} lg={8}>
+                                    <div className={`form-builder-input`}>
+                                        <Space
+                                            // key={key}
+                                            style={{ display: 'flex', marginBottom: 8 }}
+                                            align="baseline"
+                                        >
+                                            <FormBuilder
+                                                formInst={name}
+                                                fromDynamic={true}
+                                                fieldsList={create[1]}
+                                                className={`${style.formBuilder} layout-create-ingredients-input`}
+                                                isCreateOrAdd={true}
+                                            />
+                                            <MinusCircleOutlined onClick={() => remove(name)} />
+                                        </Space>
+                                    </div>
+                                </Col>
+                            ))}
+                            <Form.Item>
+                                <Button
+                                    type="dashed"
+                                    onClick={() => add()}
+                                    block
+                                    icon={<PlusOutlined />}
+                                >
+                                    Ajouter un ingrédient
+                                </Button>
+                            </Form.Item>
+                        </Row>
+                    </>
+                )}
+            </Form.List>
 
-            <FormList
-                name="recipesStep"
-                errorValidator="Veuillez ajouter au moin 1 étape"
-                fromDynamic={true}
-                fieldsList={create[2]}
-                messageAdd="Ajouter une étape"
-            />
+            <hr className={style.line} />
+
+            <Form.List name="recipesStep">
+                {(fields, { add, remove }) => (
+                    <>
+                        <Row gutter={[48, 48]}>
+                            {fields.map(({ key, name, fieldKey, ...restField }) => (
+                                <Col key={key} xs={24} md={12} lg={8}>
+                                    <div className={`form-builder-input`}>
+                                        <Space
+                                            // key={key}
+                                            style={{ display: 'flex', marginBottom: 8 }}
+                                            align="baseline"
+                                        >
+                                            <FormBuilder
+                                                formInst={name}
+                                                fromDynamic={true}
+                                                fieldsList={create[2]}
+                                                className={`${style.formBuilder} layout-create-step-input`}
+                                                isCreateOrAdd={true}
+                                            />
+                                            <MinusCircleOutlined onClick={() => remove(name)} />
+                                        </Space>
+                                    </div>
+                                </Col>
+                            ))}
+                            <Form.Item>
+                                <Button
+                                    type="dashed"
+                                    onClick={() => add()}
+                                    block
+                                    icon={<PlusOutlined />}
+                                >
+                                    Ajouter une étape
+                                </Button>
+                            </Form.Item>
+                        </Row>
+                    </>
+                )}
+            </Form.List>
 
             <hr className={style.line} />
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Créer cette étape
+                    Créer cette recette
                 </Button>
             </Form.Item>
         </Form>

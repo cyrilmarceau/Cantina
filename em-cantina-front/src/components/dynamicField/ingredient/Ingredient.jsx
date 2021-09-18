@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { MinusCircleOutlined } from '@ant-design/icons'
 
@@ -9,8 +9,6 @@ import _ from 'lodash'
 import IngredientDetail from './IngredientDetail'
 
 import style from './Ingredient.module.scss'
-
-const { Option } = Select
 
 const Ingredient = ({ ingredients }) => {
     const [ingredientList, setIngredientList] = useState(ingredients)
@@ -28,7 +26,7 @@ const Ingredient = ({ ingredients }) => {
                               <IngredientDetail
                                   removeIngredient={removeIngredient}
                                   el={el}
-                                  key={key}
+                                  key={el[1]}
                                   idEl={key}
                               />
                           )

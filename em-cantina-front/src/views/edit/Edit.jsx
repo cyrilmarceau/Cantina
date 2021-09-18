@@ -61,23 +61,28 @@ const Edit = () => {
         let ingredients = []
         let steps = []
 
-        values.defaultRecipe.forEach((el, i) => {
-            let createArrayFromDefaultRecipe = []
-            if (!_.isNil(el.type) || !el.type === '') {
-                createArrayFromDefaultRecipe.push(el.quantity.toString() + el.type, el.contain)
-                ingredients.push(createArrayFromDefaultRecipe)
-            } else {
-                createArrayFromDefaultRecipe.push(el.quantity.toString() + '', el.contain)
-                ingredients.push(createArrayFromDefaultRecipe)
-            }
-        })
+        if (!_.isNil(values.defaultRecipe)) {
+            values.defaultRecipe.forEach((el, i) => {
+                let createArrayFromDefaultRecipe = []
+                if (!_.isNil(el.type) || !el.type === '') {
+                    createArrayFromDefaultRecipe.push(el.quantity.toString() + el.type, el.contain)
+                    ingredients.push(createArrayFromDefaultRecipe)
+                } else {
+                    createArrayFromDefaultRecipe.push(el.quantity.toString() + '', el.contain)
+                    ingredients.push(createArrayFromDefaultRecipe)
+                }
+            })
+        }
 
         if (!_.isNil(values.recipes)) {
             values.recipes.forEach((el) => {
+                let arrayForIngredient = []
                 if (!_.isNil(el.type) || !el.type === '') {
-                    ingredients.push(el.quantity.toString() + el.type, el.contain)
+                    arrayForIngredient.push(el.quantity.toString() + el.type, el.contain)
+                    ingredients.push(arrayForIngredient)
                 } else {
-                    ingredients.push(el.quantity.toString() + '', el.contain)
+                    arrayForIngredient.push(el.quantity.toString() + '', el.contain)
+                    ingredients.push(arrayForIngredient)
                 }
             })
         }
@@ -88,9 +93,11 @@ const Edit = () => {
             })
         }
 
-        values.defaultStep.forEach((el) => {
-            steps.push(el.step)
-        })
+        if (!_.isNil(values.defaultStep)) {
+            values.defaultStep.forEach((el) => {
+                steps.push(el.step)
+            })
+        }
 
         // // Format to JSON
         formatRecipe.titre = values.title
