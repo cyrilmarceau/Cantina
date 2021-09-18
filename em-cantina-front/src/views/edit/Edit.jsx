@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 
-import { Row, Col, Form, Button, Spin, message } from 'antd'
+import { Row, Col, Form, Button, Spin, message, Space } from 'antd'
 
-import { MinusCircleOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 import _ from 'lodash'
 
@@ -140,25 +140,89 @@ const Edit = () => {
                         <h2>Ingredients</h2>
                         <Ingredient ingredients={state.recipe.ingredients} />
 
-                        <FormList
-                            name="recipes"
-                            errorValidator="Veuillez ajouter au moin 1 ingrédient"
-                            fromDynamic={true}
-                            fieldsList={edit[1]}
-                            isCreateOrEdit={true}
-                            messageAdd="Ajouter un ingrédient"
-                        />
+                        <Form.List name="recipes">
+                            {(fields, { add, remove }) => (
+                                <>
+                                    <Row gutter={[48, 48]}>
+                                        {fields.map(({ key, name, fieldKey, ...restField }) => (
+                                            <Col key={key} xs={24} md={12} lg={8}>
+                                                <div className={`form-builder-input`}>
+                                                    <Space
+                                                        // key={key}
+                                                        style={{ display: 'flex', marginBottom: 8 }}
+                                                        align="baseline"
+                                                    >
+                                                        <FormBuilder
+                                                            formInst={name}
+                                                            fromDynamic={true}
+                                                            fieldsList={edit[1]}
+                                                            className={`${style.formBuilder} layout-create-ingredients-input`}
+                                                            isCreateOrAdd={true}
+                                                        />
+                                                        <MinusCircleOutlined
+                                                            onClick={() => remove(name)}
+                                                        />
+                                                    </Space>
+                                                </div>
+                                            </Col>
+                                        ))}
+                                        <Form.Item>
+                                            <Button
+                                                type="dashed"
+                                                onClick={() => add()}
+                                                block
+                                                icon={<PlusOutlined />}
+                                            >
+                                                Ajouter un ingrédient
+                                            </Button>
+                                        </Form.Item>
+                                    </Row>
+                                </>
+                            )}
+                        </Form.List>
 
                         <h2>Etapes</h2>
                         <Step steps={state.recipe.etapes} />
-
-                        <FormList
-                            name="recipesStep"
-                            errorValidator="Veuillez ajouter au moin 1 étape"
-                            fromDynamic={true}
-                            fieldsList={edit[2]}
-                            messageAdd="Ajouter une étape"
-                        />
+                        <Form.List name="recipesStep">
+                            {(fields, { add, remove }) => (
+                                <>
+                                    <Row gutter={[48, 48]}>
+                                        {fields.map(({ key, name, fieldKey, ...restField }) => (
+                                            <Col key={key} xs={24} md={12} lg={8}>
+                                                <div className={`form-builder-input`}>
+                                                    <Space
+                                                        // key={key}
+                                                        style={{ display: 'flex', marginBottom: 8 }}
+                                                        align="baseline"
+                                                    >
+                                                        <FormBuilder
+                                                            formInst={name}
+                                                            fromDynamic={true}
+                                                            fieldsList={edit[2]}
+                                                            className={`${style.formBuilder} layout-create-step-input`}
+                                                            isCreateOrAdd={true}
+                                                        />
+                                                        <MinusCircleOutlined
+                                                            onClick={() => remove(name)}
+                                                        />
+                                                    </Space>
+                                                </div>
+                                            </Col>
+                                        ))}
+                                        <Form.Item>
+                                            <Button
+                                                type="dashed"
+                                                onClick={() => add()}
+                                                block
+                                                icon={<PlusOutlined />}
+                                            >
+                                                Ajouter une étape
+                                            </Button>
+                                        </Form.Item>
+                                    </Row>
+                                </>
+                            )}
+                        </Form.List>
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
