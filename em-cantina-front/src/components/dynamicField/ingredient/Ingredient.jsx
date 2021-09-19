@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
@@ -7,8 +7,6 @@ import { Col, Form, Input, InputNumber, Select, Divider, Button } from 'antd'
 import _ from 'lodash'
 
 import OptionsContext from '../../../context/OptionsContext'
-
-import style from './Ingredient.module.scss'
 
 const { Option } = Select
 
@@ -62,7 +60,6 @@ const Ingredient = ({ ingredient, removeIngredient, uuid }) => {
                             name={['defaultRecipe', uuid, 'type']}
                         >
                             <Select
-                                style={{ width: 240 }}
                                 placeholder="Ajouter une unité"
                                 dropdownRender={(menu) => (
                                     <div>
@@ -115,7 +112,10 @@ const Ingredient = ({ ingredient, removeIngredient, uuid }) => {
                             <Input placeholder="Content" />
                         </Form.Item>
                         <div>
-                            <MinusCircleOutlined onClick={() => removeIngredient(uuid)} />
+                            <MinusCircleOutlined
+                                className="delete-icon"
+                                onClick={() => removeIngredient(uuid)}
+                            />
                         </div>
                     </div>
                 </Col>

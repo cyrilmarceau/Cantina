@@ -1,7 +1,5 @@
 import { Form, InputNumber } from 'antd'
 
-import style from './FormNumberInput.module.scss'
-
 const FormNumberInput = ({ field, formInst, fromDynamic }) => {
     return (
         <Form.Item

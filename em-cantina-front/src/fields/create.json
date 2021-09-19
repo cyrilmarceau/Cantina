@@ -104,12 +104,10 @@
             "displayLabel": true,
             "key": "step",
             "label": "Etape",
-            "min": 0,
-            "max": 9999999999,
             "rules": [
                 {
                     "required": true,
-                    "message": "Veuillez remplir cette étape"
+                    "message": "Veuillez remplir le champ étape"
                 }
             ]
         }

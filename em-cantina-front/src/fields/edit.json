@@ -102,8 +102,13 @@
             "type": "text",
             "displayLabel": true,
             "key": "contain",
-            "label": "Contenue",
-            "rules": []
+            "label": "Contenu",
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Veuillez remplir le champ contenu"
+                }
+            ]
         }
     ],
     [
@@ -112,8 +117,12 @@
             "displayLabel": true,
             "key": "step",
             "label": "Etape",
-            "min": 0,
-            "max": 9999999999
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Veuillez remplir le champ étape"
+                }
+            ]
         }
     ]
 ]

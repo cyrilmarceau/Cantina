@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Input, Form } from 'antd'
+import { InputNumber, Form } from 'antd'
 
 import style from './FormRangeNumberInput.module.scss'
 
@@ -12,7 +12,7 @@ const FormRangeNumberInput = ({ field }) => {
                 name={[field.key, 'min']}
                 rules={field.rules}
             >
-                <Input placeholder="Minimum" />
+                <InputNumber placeholder="Minimum" />
             </Form.Item>
 
             <div className={style.tield}>~</div>
@@ -22,7 +22,7 @@ const FormRangeNumberInput = ({ field }) => {
                 name={[field.key, 'max']}
                 rules={field.rules}
             >
-                <Input placeholder="Maximum" />
+                <InputNumber placeholder="Maximum" />
             </Form.Item>
         </div>
     )

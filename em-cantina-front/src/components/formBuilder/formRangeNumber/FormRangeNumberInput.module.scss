@@ -14,8 +14,12 @@
     }
 }
 
-:global .remove-margin {
-    .ant-form-item {
-        margin: 0 !important;
-    }
-}
+// :global {
+//     @media (max-width: 991.98px) {
+//         .remove-margin {
+//             .ant-form-item {
+//                 margin: 0 !important;
+//             }
+//         }
+//     }
+// }

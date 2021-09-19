@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 
-import { Row, Col, Form, Button, Spin, message, Space, Input } from 'antd'
+import { Row, Col, Form, Button, Spin, message } from 'antd'
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
@@ -11,16 +11,12 @@ import _ from 'lodash'
 import edit from '../../fields/edit.json'
 
 import FormBuilder from '../../components/formBuilder/main'
-
 import Ingredient from '../../components/dynamicField/ingredient/Ingredient'
 import Step from '../../components/dynamicField/step/Step'
-import FormList from '../../components/formBuilder/FormList/FormList'
 
 import API from '../../libs/API'
 
 import style from './Edit.module.scss'
-
-const { TextArea } = Input
 
 const Edit = () => {
     const [state, setState] = useState({
@@ -87,12 +83,13 @@ const Edit = () => {
 
         if (!_.isNil(values.defaultRecipe)) {
             values.defaultRecipe.forEach((el, i) => {
+                let isEmptyOrNoQuantity = !_.isNil(el.quantity) ? el.quantity.toString() : ''
                 let createArrayFromDefaultRecipe = []
                 if (!_.isNil(el.type) || !el.type === '') {
-                    createArrayFromDefaultRecipe.push(el.quantity.toString() + el.type, el.contain)
+                    createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + el.type, el.contain)
                     ingredients.push(createArrayFromDefaultRecipe)
                 } else {
-                    createArrayFromDefaultRecipe.push(el.quantity.toString() + '', el.contain)
+                    createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + '', el.contain)
                     ingredients.push(createArrayFromDefaultRecipe)
                 }
             })
@@ -100,12 +97,13 @@ const Edit = () => {
 
         if (!_.isNil(values.recipes)) {
             values.recipes.forEach((el) => {
+                let isEmptyOrNoQuantity = !_.isNil(el.quantity) ? el.quantity.toString() : ''
                 let arrayForIngredient = []
                 if (!_.isNil(el.type) || !el.type === '') {
-                    arrayForIngredient.push(el.quantity.toString() + el.type, el.contain)
+                    arrayForIngredient.push(isEmptyOrNoQuantity + el.type, el.contain)
                     ingredients.push(arrayForIngredient)
                 } else {
-                    arrayForIngredient.push(el.quantity.toString() + '', el.contain)
+                    arrayForIngredient.push(isEmptyOrNoQuantity + '', el.contain)
                     ingredients.push(arrayForIngredient)
                 }
             })
@@ -117,7 +115,6 @@ const Edit = () => {
             })
         }
 
-        // console.log(values)
         if (!_.isNil(values.defaultStep)) {
             values.defaultStep.forEach((el) => {
                 if (!_.isNil(el)) {
@@ -134,13 +131,19 @@ const Edit = () => {
         formatRecipe.tempsPreparation = values.preparationTime
         formatRecipe.ingredients = ingredients
         formatRecipe.etapes = steps
+
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
             formatRecipe.photo = values.pictureURL
         }
-        console.log(formatRecipe)
-        API.updateRecipe(id, formatRecipe).then(() => {
-            message.success('La modification à bien été effectué', 1, history.push('/'))
-        })
+        API.updateRecipe(id, formatRecipe)
+            .then(() => {
+                message.success('La modification à bien été effectué', 1, () => history.push('/'))
+            })
+            .catch((e) => {
+                message.error('Une erreur est survenue pendant la modification', 1, () =>
+                    history.push('/')
+                )
+            })
     }
 
     const removeStep = (id) => {
@@ -200,49 +203,44 @@ const Edit = () => {
                                     />
                                 )
                             })}
-                        </Row>
-                        {/* <Ingredient ingredients={state.recipe.ingredients} /> */}
 
-                        <Form.List name="recipes">
-                            {(fields, { add, remove }) => (
-                                <>
-                                    <Row gutter={[48, 48]}>
+                            <Form.List name="recipes">
+                                {(fields, { add, remove }) => (
+                                    <>
                                         {fields.map(({ key, name, fieldKey, ...restField }) => (
                                             <Col key={key} xs={24} md={12} lg={8}>
                                                 <div className={`form-builder-input`}>
-                                                    <Space
-                                                        // key={key}
-                                                        style={{ display: 'flex', marginBottom: 8 }}
-                                                        align="baseline"
-                                                    >
-                                                        <FormBuilder
-                                                            formInst={name}
-                                                            fromDynamic={true}
-                                                            fieldsList={edit[1]}
-                                                            className={`${style.formBuilder} layout-create-ingredients-input`}
-                                                            isCreateOrAdd={true}
-                                                        />
-                                                        <MinusCircleOutlined
-                                                            onClick={() => remove(name)}
-                                                        />
-                                                    </Space>
+                                                    <FormBuilder
+                                                        formInst={name}
+                                                        fromDynamic={true}
+                                                        fieldsList={edit[1]}
+                                                        className={`${style.formBuilder} layout-create-ingredients-input`}
+                                                        isCreateOrEdit={true}
+                                                    />
+                                                    <MinusCircleOutlined
+                                                        className="delete-icon"
+                                                        onClick={() => remove(name)}
+                                                    />
                                                 </div>
                                             </Col>
                                         ))}
-                                    </Row>
-                                    <Form.Item>
-                                        <Button
-                                            type="dashed"
-                                            onClick={() => add()}
-                                            block
-                                            icon={<PlusOutlined />}
-                                        >
-                                            Ajouter un ingrédient
-                                        </Button>
-                                    </Form.Item>
-                                </>
-                            )}
-                        </Form.List>
+
+                                        <Col span={24}>
+                                            <Form.Item>
+                                                <Button
+                                                    type="dashed"
+                                                    onClick={() => add()}
+                                                    block
+                                                    icon={<PlusOutlined />}
+                                                >
+                                                    Ajouter un ingrédient
+                                                </Button>
+                                            </Form.Item>
+                                        </Col>
+                                    </>
+                                )}
+                            </Form.List>
+                        </Row>
 
                         <h2>Etapes</h2>
 
@@ -258,83 +256,43 @@ const Edit = () => {
                                     />
                                 )
                             })}
-                        </Row>
 
-                        {/* <Form.List name="defaultStep">
-                            {(fields, { add, remove }) => (
-                                <>
-                                    <Row gutter={[48, 48]}>
-                                        {fields.map(({ key, name, fieldKey, ...restField }) => (
-                                            <>
-                                                {state.recipe.etapes.map((el, k) => {
-                                                    return (
-                                                        <Col key={el.id} xs={24} md={12} lg={8}>
-                                                            <div
-                                                                key={el}
-                                                                className={`form-builder-input`}
-                                                            >
-                                                                <Form.Item
-                                                                    initialValue={el.step}
-                                                                    label="Etape"
-                                                                    name={[el.id, 'step']}
-                                                                >
-                                                                    <TextArea placeholder="Etapes" />
-                                                                </Form.Item>
-                                                                <div className={style.deleteIcon}>
-                                                                    <MinusCircleOutlined
-                                                                        onClick={() => remove(name)}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </Col>
-                                                    )
-                                                })}
-                                            </>
-                                        ))}
-                                    </Row>
-                                </>
-                            )}
-                        </Form.List> */}
-                        <Form.List name="recipesStep">
-                            {(fields, { add, remove }) => (
-                                <>
-                                    <Row gutter={[48, 48]}>
+                            <Form.List name="recipesStep">
+                                {(fields, { add, remove }) => (
+                                    <>
                                         {fields.map(({ key, name, fieldKey, ...restField }) => (
                                             <Col key={key} xs={24} md={12} lg={8}>
                                                 <div className={`form-builder-input`}>
-                                                    <Space
-                                                        // key={key}
-                                                        style={{ display: 'flex', marginBottom: 8 }}
-                                                        align="baseline"
-                                                    >
-                                                        <FormBuilder
-                                                            formInst={name}
-                                                            fromDynamic={true}
-                                                            fieldsList={edit[2]}
-                                                            className={`${style.formBuilder} layout-create-step-input`}
-                                                            isCreateOrAdd={true}
-                                                        />
-                                                        <MinusCircleOutlined
-                                                            onClick={() => remove(name)}
-                                                        />
-                                                    </Space>
+                                                    <FormBuilder
+                                                        formInst={name}
+                                                        fromDynamic={true}
+                                                        fieldsList={edit[2]}
+                                                        className={`${style.formBuilder} layout-create-step-input`}
+                                                        isCreateOrEdit={true}
+                                                    />
+                                                    <MinusCircleOutlined
+                                                        className="delete-icon"
+                                                        onClick={() => remove(name)}
+                                                    />
                                                 </div>
                                             </Col>
                                         ))}
-                                    </Row>
-                                    <Form.Item>
-                                        <Button
-                                            type="dashed"
-                                            onClick={() => add()}
-                                            block
-                                            icon={<PlusOutlined />}
-                                        >
-                                            Ajouter une étape
-                                        </Button>
-                                    </Form.Item>
-                                </>
-                            )}
-                        </Form.List>
+                                        <Col span={24}>
+                                            <Form.Item>
+                                                <Button
+                                                    type="dashed"
+                                                    onClick={() => add()}
+                                                    block
+                                                    icon={<PlusOutlined />}
+                                                >
+                                                    Ajouter une étape
+                                                </Button>
+                                            </Form.Item>
+                                        </Col>
+                                    </>
+                                )}
+                            </Form.List>
+                        </Row>
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit">

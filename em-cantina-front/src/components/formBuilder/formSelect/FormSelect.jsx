@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { Form, Select, Input, Divider } from 'antd'
 
@@ -7,8 +7,6 @@ import { PlusOutlined } from '@ant-design/icons'
 import _ from 'lodash'
 
 import OptionsContext from '../../../context/OptionsContext'
-
-import API from '../../../libs/API'
 
 import style from './FormSelect.module.scss'
 

@@ -28,7 +28,7 @@ const Home = () => {
         canFilterPeople: false,
     })
 
-    const { options, setOptions } = useContext(OptionsContext)
+    const { setOptions } = useContext(OptionsContext)
 
     useEffect(() => {
         fetchRecipes()
@@ -76,20 +76,46 @@ const Home = () => {
             setState(newS)
         }
 
-        // if (allValues.numberPeople.min > allValues.numberPeople.max) {
-        //     form.getFieldInstance('validator')
-        //     form.validateFields().then((values) => {
-        //         console.log('Min ne peux pas être inferieur à max', values)
-        //     })
-        // } else if (_.isNaN(allValues.numberPeople.min)) {
-        //     form.validateFields().then((values) => {
-        //         console.log('Veuillez remplir le champs min', values)
-        //     })
-        // } else if (_.isNaN(allValues.numberPeople.max)) {
-        //     form.validateFields().then((values) => {
-        //         console.log('Veuillez remplir le champs max', values)
-        //     })
-        // }
+        if (allValues.numberPeople.min > allValues.numberPeople.max) {
+            form.getFieldInstance('numberPeople_max', {
+                rules: [
+                    {
+                        messages: 'Min ne peux pas être inferieur à max',
+                    },
+                ],
+            })
+            // form.validateFields().then((values) => {
+            //     console.log('Min ne peux pas être inferieur à max', values)
+            // })
+        } else if (_.isNaN(allValues.numberPeople.min)) {
+            form.setFieldsValue({
+                numberPeople_min: {
+                    rules: [
+                        {
+                            messages: 'Veuillez remplir le champs min',
+                        },
+                    ],
+                },
+            })
+            // form.getFieldInstance('numberPeople_min', {
+            //     rules: [
+            //         {
+            //             messages: 'Veuillez remplir le champs min',
+            //         },
+            //     ],
+            // })
+        } else if (_.isNaN(allValues.numberPeople.max)) {
+            form.getFieldInstance('numberPeople_max', {
+                rules: [
+                    {
+                        messages: 'Veuillez remplir le champs max',
+                    },
+                ],
+            })
+            // form.validateFields().then((values) => {
+            //     console.log('Veuillez remplir le champs max', values)
+            // })
+        }
     }
 
     const [form] = Form.useForm()

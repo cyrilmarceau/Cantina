@@ -6,8 +6,6 @@ import FormTextInput from './formText/FormTextInput'
 
 import _ from 'lodash'
 
-import style from './main.module.scss'
-
 function FormBuilder({ fieldsList, formInst = null, isCreateOrEdit, fromDynamic, className = '' }) {
     return (
         <div className={className}>

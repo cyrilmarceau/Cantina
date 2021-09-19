@@ -31,17 +31,16 @@ const Detail = () => {
             newS.recipe = recipesFetch
             setState(newS)
         } catch (e) {
-            console.log(e)
-            // if (e.response.data.errorMessage === 'Aucune recette trouvée') {
-            //     message
-            //         .error(
-            //             "La page recherché n'existe pas vous allez être rediriger dans 2 secondes",
-            //             2
-            //         )
-            //         .then(() => {
-            //             history.push('/')
-            //         })
-            // }
+            if (e.response.data.errorMessage === 'Aucune recette trouvée') {
+                message
+                    .error(
+                        "La page recherché n'existe pas vous allez être rediriger dans 2 secondes",
+                        2
+                    )
+                    .then(() => {
+                        history.push('/')
+                    })
+            }
         }
     }
 
@@ -50,7 +49,9 @@ const Detail = () => {
             content: `Vous vous apprêter à supprimer ${recipeName}. Confirmer la suppression ?`,
             onOk() {
                 API.deleteRecipe(id).then(() => {
-                    message.success('La suppression a bien été effectué.', 1, history.push('/'))
+                    message.success('La suppression a bien été effectué.', 1, () =>
+                        history.push('/')
+                    )
                 })
             },
             cancelText: 'Retour',
