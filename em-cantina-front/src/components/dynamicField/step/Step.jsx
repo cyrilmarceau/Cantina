@@ -1,40 +1,26 @@
+import React, { useState, useEffect } from 'react'
+
 import { MinusCircleOutlined } from '@ant-design/icons'
 import { Col, Form, Input, Row } from 'antd'
-import React, { useState } from 'react'
+
+import { v4 as uuidv4 } from 'uuid'
+
 import style from './Step.module.scss'
 
 const { TextArea } = Input
 
-const Step = ({ steps }) => {
-    const [stepList, setStepList] = useState(steps)
-
-    const removeStep = (el) => {
-        setStepList((step) => step.filter((_, i) => el !== _))
-    }
-
+const Step = ({ step, removeStep, elNameKey, uuid }) => {
     return (
-        <>
-            <Row gutter={[48, 48]}>
-                {stepList.map((el, k) => {
-                    return (
-                        <Col key={el} xs={24} md={12} lg={8}>
-                            <div key={el} className={`form-builder-input`}>
-                                <Form.Item
-                                    initialValue={el}
-                                    label="Etape"
-                                    name={['defaultStep', k, 'step']}
-                                >
-                                    <TextArea placeholder="Etapes" />
-                                </Form.Item>
-                                <div className={style.deleteIcon}>
-                                    <MinusCircleOutlined onClick={() => removeStep(el)} />
-                                </div>
-                            </div>
-                        </Col>
-                    )
-                })}
-            </Row>
-        </>
+        <Col xs={24} md={12} lg={8}>
+            <div className={`form-builder-input`}>
+                <Form.Item initialValue={step} label="Etape" name={['defaultStep', uuid, 'step']}>
+                    <TextArea placeholder="Etapes" />
+                </Form.Item>
+                <div className={style.deleteIcon}>
+                    <MinusCircleOutlined onClick={() => removeStep(uuid)} />
+                </div>
+            </div>
+        </Col>
     )
 }
 

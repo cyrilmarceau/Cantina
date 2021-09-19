@@ -43,6 +43,28 @@ const Edit = () => {
 
             let newS = _.cloneDeep(state)
             newS.recipe = recipesFetch
+
+            let formatStep = []
+            newS.recipe.etapes.forEach((el, k) => {
+                let obj = {
+                    id: k,
+                    step: el,
+                }
+                formatStep.push(obj)
+            })
+            newS.recipe.etapes = formatStep
+
+            let formatIngredient = []
+            newS.recipe.ingredients.forEach((el, k) => {
+                let obj = {
+                    id: k,
+                    ingredient: el,
+                }
+                formatIngredient.push(obj)
+            })
+
+            newS.recipe.ingredients = formatIngredient
+
             setState(newS)
         } catch (e) {
             if (e.response.data.errorMessage === 'Aucune recette trouvée') {
@@ -95,13 +117,16 @@ const Edit = () => {
             })
         }
 
+        // console.log(values)
         if (!_.isNil(values.defaultStep)) {
             values.defaultStep.forEach((el) => {
-                steps.push(el.step)
+                if (!_.isNil(el)) {
+                    steps.push(el.step)
+                }
             })
         }
 
-        // // Format to JSON
+        // Format to JSON
         formatRecipe.titre = values.title
         formatRecipe.description = values.description
         formatRecipe.niveau = values.difficulty
@@ -112,9 +137,33 @@ const Edit = () => {
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
             formatRecipe.photo = values.pictureURL
         }
-
+        console.log(formatRecipe)
         API.updateRecipe(id, formatRecipe).then(() => {
             message.success('La modification à bien été effectué', 1, history.push('/'))
+        })
+    }
+
+    const removeStep = (id) => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                recipe: {
+                    ...prevState.recipe,
+                    etapes: prevState.recipe.etapes.filter((etape) => etape.id !== id),
+                },
+            }
+        })
+    }
+
+    const removeIngredient = (id) => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                recipe: {
+                    ...prevState.recipe,
+                    ingredients: prevState.recipe.ingredients.filter((ing) => ing.id !== id),
+                },
+            }
         })
     }
 
@@ -140,7 +189,19 @@ const Edit = () => {
                         <FormBuilder fieldsList={edit[0]} className={`layout-edit-input`} />
 
                         <h2>Ingredients</h2>
-                        <Ingredient ingredients={state.recipe.ingredients} />
+                        <Row gutter={[48, 48]}>
+                            {state.recipe.ingredients.map((el, k) => {
+                                return (
+                                    <Ingredient
+                                        key={el.id}
+                                        removeIngredient={removeIngredient}
+                                        ingredient={el.ingredient}
+                                        uuid={el.id}
+                                    />
+                                )
+                            })}
+                        </Row>
+                        {/* <Ingredient ingredients={state.recipe.ingredients} /> */}
 
                         <Form.List name="recipes">
                             {(fields, { add, remove }) => (
@@ -185,7 +246,21 @@ const Edit = () => {
 
                         <h2>Etapes</h2>
 
-                        <Form.List name="defaultStep">
+                        <Row gutter={[48, 48]}>
+                            {state.recipe.etapes.map((el, k) => {
+                                return (
+                                    <Step
+                                        elNameKey={el.id}
+                                        key={el.id}
+                                        removeStep={removeStep}
+                                        step={el.step}
+                                        uuid={el.id}
+                                    />
+                                )
+                            })}
+                        </Row>
+
+                        {/* <Form.List name="defaultStep">
                             {(fields, { add, remove }) => (
                                 <>
                                     <Row gutter={[48, 48]}>
@@ -193,15 +268,15 @@ const Edit = () => {
                                             <>
                                                 {state.recipe.etapes.map((el, k) => {
                                                     return (
-                                                        <Col key={el} xs={24} md={12} lg={8}>
+                                                        <Col key={el.id} xs={24} md={12} lg={8}>
                                                             <div
                                                                 key={el}
                                                                 className={`form-builder-input`}
                                                             >
                                                                 <Form.Item
-                                                                    initialValue={el}
+                                                                    initialValue={el.step}
                                                                     label="Etape"
-                                                                    name={[k, 'step']}
+                                                                    name={[el.id, 'step']}
                                                                 >
                                                                     <TextArea placeholder="Etapes" />
                                                                 </Form.Item>
@@ -219,7 +294,7 @@ const Edit = () => {
                                     </Row>
                                 </>
                             )}
-                        </Form.List>
+                        </Form.List> */}
                         <Form.List name="recipesStep">
                             {(fields, { add, remove }) => (
                                 <>
