@@ -155,7 +155,6 @@ const Create = () => {
                 )}
             </Form.List>
 
-            <hr className={style.line} />
             <Form.Item>
                 <Button type="primary" htmlType="submit">
                     Créer cette recette

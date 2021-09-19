@@ -26,6 +26,7 @@ const Recipe = ({
 
     let history = useHistory()
 
+    // Create stars
     switch (_level) {
         case 'padawan':
             stars.push(<StarFilled />)

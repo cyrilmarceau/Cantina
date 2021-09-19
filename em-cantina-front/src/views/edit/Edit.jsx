@@ -24,6 +24,7 @@ const Edit = () => {
     })
 
     let history = useHistory()
+
     let { id } = useParams()
 
     const [form] = Form.useForm()
@@ -84,7 +85,9 @@ const Edit = () => {
         if (!_.isNil(values.defaultRecipe)) {
             values.defaultRecipe.forEach((el, i) => {
                 let isEmptyOrNoQuantity = !_.isNil(el.quantity) ? el.quantity.toString() : ''
+
                 let createArrayFromDefaultRecipe = []
+
                 if (!_.isNil(el.type) || !el.type === '') {
                     createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + el.type, el.contain)
                     ingredients.push(createArrayFromDefaultRecipe)
@@ -98,6 +101,7 @@ const Edit = () => {
         if (!_.isNil(values.recipes)) {
             values.recipes.forEach((el) => {
                 let isEmptyOrNoQuantity = !_.isNil(el.quantity) ? el.quantity.toString() : ''
+
                 let arrayForIngredient = []
                 if (!_.isNil(el.type) || !el.type === '') {
                     arrayForIngredient.push(isEmptyOrNoQuantity + el.type, el.contain)
@@ -135,6 +139,7 @@ const Edit = () => {
         if (!_.isEmpty(values.pictureURL) && values.pictureURL.match(/https?:\/\//g)) {
             formatRecipe.photo = values.pictureURL
         }
+
         API.updateRecipe(id, formatRecipe)
             .then(() => {
                 message.success('La modification à bien été effectué', 1, () => history.push('/'))
@@ -182,7 +187,6 @@ const Edit = () => {
                             difficulty: state.recipe.niveau,
                             preparationTime: state.recipe.tempsPreparation,
                             pictureURL: state.recipe.photo,
-                            defaultStep: [''],
                         }}
                         name="dynamic_form_item"
                         form={form}

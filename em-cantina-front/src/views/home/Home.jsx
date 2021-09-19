@@ -38,6 +38,13 @@ const Home = () => {
         setFileOption()
     }, [state.recipes])
 
+    /**
+     * @setFileOption
+     * Get all options of recipes
+     * regex to separate number to string
+     * Remove dupplicate element in array
+     * Push in context and in localStorage
+     */
     const setFileOption = () => {
         if (!_.isNil(state.recipes)) {
             let type = []
@@ -64,6 +71,11 @@ const Home = () => {
         setState(newS)
     }
 
+    /**
+     *
+     * @param {*} changedValues Return a current value who is changed
+     * @param {*} allValues Return all values of input
+     */
     const filtersRecipe = (changedValues, allValues) => {
         let newS = _.cloneDeep(state)
 
@@ -74,47 +86,6 @@ const Home = () => {
         newS.filter = _.cloneDeep(allValues)
         if (!_.isEqual(state, newS)) {
             setState(newS)
-        }
-
-        if (allValues.numberPeople.min > allValues.numberPeople.max) {
-            form.getFieldInstance('numberPeople_max', {
-                rules: [
-                    {
-                        messages: 'Min ne peux pas être inferieur à max',
-                    },
-                ],
-            })
-            // form.validateFields().then((values) => {
-            //     console.log('Min ne peux pas être inferieur à max', values)
-            // })
-        } else if (_.isNaN(allValues.numberPeople.min)) {
-            form.setFieldsValue({
-                numberPeople_min: {
-                    rules: [
-                        {
-                            messages: 'Veuillez remplir le champs min',
-                        },
-                    ],
-                },
-            })
-            // form.getFieldInstance('numberPeople_min', {
-            //     rules: [
-            //         {
-            //             messages: 'Veuillez remplir le champs min',
-            //         },
-            //     ],
-            // })
-        } else if (_.isNaN(allValues.numberPeople.max)) {
-            form.getFieldInstance('numberPeople_max', {
-                rules: [
-                    {
-                        messages: 'Veuillez remplir le champs max',
-                    },
-                ],
-            })
-            // form.validateFields().then((values) => {
-            //     console.log('Veuillez remplir le champs max', values)
-            // })
         }
     }
 
