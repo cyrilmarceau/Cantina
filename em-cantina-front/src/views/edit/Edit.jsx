@@ -6,7 +6,7 @@ import { Row, Col, Form, Button, Spin, message } from 'antd'
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
-import _ from 'lodash'
+import _, { set } from 'lodash'
 
 import edit from '../../fields/edit.json'
 
@@ -84,16 +84,18 @@ const Edit = () => {
 
         if (!_.isNil(values.defaultRecipe)) {
             values.defaultRecipe.forEach((el, i) => {
-                let isEmptyOrNoQuantity = !_.isNil(el.quantity) ? el.quantity.toString() : ''
+                if (!_.isNil(el)) {
+                    let isEmptyOrNoQuantity = !_.isNil(el.quantity) ? el.quantity.toString() : ''
 
-                let createArrayFromDefaultRecipe = []
+                    let createArrayFromDefaultRecipe = []
 
-                if (!_.isNil(el.type) || !el.type === '') {
-                    createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + el.type, el.contain)
-                    ingredients.push(createArrayFromDefaultRecipe)
-                } else {
-                    createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + '', el.contain)
-                    ingredients.push(createArrayFromDefaultRecipe)
+                    if (!_.isNil(el.type) || !el.type === '') {
+                        createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + el.type, el.contain)
+                        ingredients.push(createArrayFromDefaultRecipe)
+                    } else {
+                        createArrayFromDefaultRecipe.push(isEmptyOrNoQuantity + '', el.contain)
+                        ingredients.push(createArrayFromDefaultRecipe)
+                    }
                 }
             })
         }
@@ -142,7 +144,7 @@ const Edit = () => {
 
         API.updateRecipe(id, formatRecipe)
             .then(() => {
-                message.success('La modification à bien été effectué', 1, () => history.push('/'))
+                message.success('La modification a bien été effectué', 1, () => history.push('/'))
             })
             .catch((e) => {
                 message.error('Une erreur est survenue pendant la modification', 1, () =>

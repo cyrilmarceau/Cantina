@@ -6,6 +6,7 @@ import {
     MenuFoldOutlined,
     HomeOutlined,
     AppstoreAddOutlined,
+    BookOutlined,
 } from '@ant-design/icons'
 
 import { Switch, Route, NavLink } from 'react-router-dom'
@@ -43,7 +44,11 @@ const PageLayout = () => {
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
-                <div className="logo" />
+                {/* <div className={style.logo} /> */}
+                <div className={style.containerLogo}>
+                    <img className={style.logo} src="/logo-cantina.png" alt="" />
+                </div>
+
                 <Menu
                     className={style.menuSideBar}
                     theme="dark"

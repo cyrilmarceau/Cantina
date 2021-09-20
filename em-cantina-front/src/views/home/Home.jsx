@@ -72,7 +72,6 @@ const Home = () => {
     }
 
     /**
-     *
      * @param {*} changedValues Return a current value who is changed
      * @param {*} allValues Return all values of input
      */
@@ -96,7 +95,10 @@ const Home = () => {
         <>
             <Row>
                 <Col span={24}>
-                    <h1>Recette</h1>
+                    <h1>Cantina</h1>
+                    <h2 style={{ marginBottom: 25 }}>
+                        Trouver vos recettes de geek rapidement et facilement !
+                    </h2>
                 </Col>
                 <Col span={24}>
                     <Form
@@ -126,7 +128,7 @@ const Home = () => {
                                     !state.filter.numberPeople.max) ||
                                     (recipe.personnes >= state.filter.numberPeople.min &&
                                         recipe.personnes <= state.filter.numberPeople.max)) &&
-                                (!state.filter.time || recipe.tempsPreparation >= state.filter.time)
+                                (!state.filter.time || recipe.tempsPreparation <= state.filter.time)
                         )
                         .map((el, k) => {
                             return (
